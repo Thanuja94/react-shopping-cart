@@ -1,7 +1,7 @@
 module.exports = {
 
     database_local: 'mongodb://localhost/shopping-cart', // database connection string
-    database_cloud: 'mongodb+srv://admin:admin@cluster0.mheqy.mongodb.net/test',
+    database_cloud: 'mongodb+srv://santhas:santhas123@cluster0.jxlbj.mongodb.net/react-shopping-cart?retryWrites=true&w=majority',
     database_live: '',
     secret: '$2a$10$hVGvofC92FZJuZV8wghfghffhCcIBLBxCDoTA.B4OSC', // Server secret key  need to change when deploying 
     port: 3000,
