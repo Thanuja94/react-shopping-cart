@@ -1,0 +1,13 @@
+module.exports = {
+
+    database_local: 'mongodb://localhost/shopping-cart', // database connection string
+    database_cloud: 'mongodb+srv://admin:admin@cluster0.mheqy.mongodb.net/test',
+    database_live: '',
+    secret: '$2a$10$hVGvofC92FZJuZV8wghfghffhCcIBLBxCDoTA.B4OSC', // Server secret key  need to change when deploying 
+    port: 3000,
+    issuer: 'www.tenent.com', // to verify token issuer with this value
+    audience: 'mysite.com', // to verify token audience with this value
+    searchLimit: 100, // Search limit config, Change this to set the search limit 
+    deploy: true // to toggle between dev mode and deoply mode : loggin with auth header when true 
+
+}
