@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const fileUpload = require('express-fileupload');
 const config = require('./config/config'); // global config file
 const cors = require('cors');
 
@@ -14,11 +15,11 @@ var products = require('./routes/products');
 
 var app = express();
 
-app.use(cors());
 
 //#region - middlewares
 
-//body parser
+app.use(cors());
+app.use(fileUpload())
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
@@ -37,6 +38,15 @@ app.use('/api', products);
 const server = app.listen(port, function() {
     console.log('server spinned up ...');
 });
+
+mongoose
+    .connect(config.database_cloud, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => console.log("Connected to Db successfully ... "))
+    .catch(err => console.log("Ërror has occured while connecting to db : ", err));
+
+//#region -- server and database connection
+
+//#endregion
 
 process.on('uncaughtException', function(error) {
     console.log(error.message);

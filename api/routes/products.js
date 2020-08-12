@@ -1,24 +1,32 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
+const commonFunctions = require('../helpers/commonFunctions');
+const Product = require('../models/product');
 
-router.route('/courses')
+router.get('/', async(req, res) => {
+    res.send(await Product.find({}));
+});
 
-// Add a new Course
-.post(function(req, res) {
-    Course.addCourse(req.body, function(err, newCourse) {
-        if (!err) {
-            logger.log(req, 'add' + req.url.replace(/\//g, '_'));
-            res.send({ success: true, data: newCourse });
-        } else {
-            if (err.name == 'ValidationError') {
-                res.status(400).send({ success: false, error: 'ValidationException', message: err.message });
-            } else {
-                res.status(500).send({ success: false, error: 'ExeptionOccured', message: 'Error occured' });
-                throw err;
-            }
-        }
-    });
-})
+router.post('/', async(req, res) => {
 
+    const file = req.files.file;
+
+    if (commonFunctions.handleFileUpload(file)) {
+
+        let product = new Product({
+            name: req.body.productName,
+            price: req.body.price,
+            qty: req.body.qty,
+            category: req.body.category,
+            imagePath: file.name,
+        })
+
+        res.send(await product.save());
+    } else {
+        res.status(500).send("Error uploading image...");
+    }
+
+
+});
 
 module.exports = router;
