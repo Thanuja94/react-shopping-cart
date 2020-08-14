@@ -22,6 +22,7 @@ app.use(cors());
 app.use(fileUpload())
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+   
 
 // logging
 
@@ -32,6 +33,7 @@ app.use(bodyParser.json());
 
 //#region  -- register routes
 app.use('/api', products);
+
 
 //#endregion
 
@@ -52,3 +54,4 @@ process.on('uncaughtException', function(error) {
     console.log(error.message);
     // log into logger as well
 });
+
