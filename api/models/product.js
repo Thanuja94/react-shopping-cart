@@ -16,7 +16,12 @@ const productSchema = new mongoose.Schema({
     category: {
         type: String,
         enum: config.product_categories
+    },
+    isActive: {
+        type: Boolean,
+        required: [true,'Active Status should be included']
     }
+
 });
 
 const Product = mongoose.model("Product", productSchema);
