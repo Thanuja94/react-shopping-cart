@@ -4,7 +4,14 @@ const commonFunctions = require('../helpers/commonFunctions');
 const Product = require('../models/product');
 
 router.get('/product', async(req, res) => {
-    res.send(await Product.find({}));
+
+    try{
+        let product = await Product.find({});
+    res.send(product);
+    }
+    catch(e){
+        res.status(500).send(e.message);
+    }
 });
 
 router.get('/:productId', async(req, res) => {
