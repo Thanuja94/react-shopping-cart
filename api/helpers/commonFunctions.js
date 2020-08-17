@@ -1,14 +1,17 @@
 module.exports = {
 
     handleFileUpload: (file) => {
+        let result = false;
         if (file === null) return false
 
-        file.mv(`../../client/public/uploads/${file.name}`, err => {
+
+        file.mv(`../client/public/uploads/${file.name}`, function(err) {
             if (err) {
                 console.log(err);
-                return false;
+                result = false;
             }
-            return true
-        })
+            result = true;
+        });
+        return result;
     }
 }

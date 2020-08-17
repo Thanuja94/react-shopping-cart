@@ -3,29 +3,31 @@ const router = express.Router();
 const commonFunctions = require('../helpers/commonFunctions');
 const Product = require('../models/product');
 
-router.get('/', async(req, res) => {
+router.get('/product', async(req, res) => {
     res.send(await Product.find({}));
 });
 
-router.post('/', async(req, res) => {
+router.post('/product', async(req, res) => {
 
     const file = req.files.file;
 
-    if (commonFunctions.handleFileUpload(file)) {
+    await file.mv(`../client/public/uploads/${file.name}`, function(err) {
+        if (err) {
+            console.log(err);
+            if (!file) res.status(400).send('Image should be uploaded ...');
+            res.status(500).send("Error uploading image...");
+        }
+    });
 
-        let product = new Product({
-            name: req.body.productName,
-            price: req.body.price,
-            qty: req.body.qty,
-            category: req.body.category,
-            imagePath: file.name,
-        })
+    let product = new Product({
+        name: req.body.productName,
+        price: req.body.price,
+        qty: req.body.qty,
+        category: req.body.category,
+        imagePath: file.name,
+    });
 
-        res.send(await product.save());
-    } else {
-        res.status(500).send("Error uploading image...");
-    }
-
+    res.send(await product.save());
 
 });
 
