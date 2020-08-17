@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const userSchema = new mongoose.Schema({
+const adminSchema = new mongoose.Schema({
     name: {
         type: String,
         required: [true, 'User name field cannot be empty']
@@ -20,5 +20,5 @@ const userSchema = new mongoose.Schema({
 
 });
 
-const SysUser = mongoose.model("SysUser", userSchema);
-module.exports = SysUser;
+const Admin = mongoose.model("Admin", adminSchema);
+module.exports = Admin;
