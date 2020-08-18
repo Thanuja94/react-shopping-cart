@@ -64,6 +64,7 @@ router.post('/product', async(req, res) => {
         });
 
         res.send(await product.save());
+        
 
     });
 });
