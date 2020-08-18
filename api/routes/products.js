@@ -63,6 +63,7 @@ router.post('/product', async(req, res) => {
             imagePath: file.name,
         });
 
+       
         res.send(await product.save());
         
 
