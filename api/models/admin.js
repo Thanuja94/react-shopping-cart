@@ -7,15 +7,16 @@ const adminSchema = new mongoose.Schema({
     },
     email: {
         type: String,
+        unique: [true, 'Email already registered'],
         required: [true, 'Email should be included'],
     },
     password: {
         type: String,
-        required :[true, 'Password should be included'],
+        required: [true, 'Password should be included'],
     },
     isActive: {
         type: Boolean,
-        default:1,
+        default: 1,
     }
 
 });

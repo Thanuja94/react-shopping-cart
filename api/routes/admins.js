@@ -1,20 +1,34 @@
 const express = require('express');
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 const router = express.Router();
 const Admin = require('../models/admin');
+
+const SECRET_KEY = "123456789";
 
 
 router.post("/", async (req, res) => {
 
-    try {
+    try
+    {
+        let salt = await bcrypt.genSalt(10);
+        let hashedpw = await bcrypt.hash(req.body.password, salt);
+
         let admin = new Admin({
             name: req.body.name,
             email: req.body.email,
-            password: req.body.password,
+            password: hashedpw,
             isActive: req.body.isActive
         });
 
         admin = await admin.save();
-        res.send(admin);
+        res.send({
+            name: admin.name,
+            email:admin.email,
+            isActive:admin.isActive
+        });
+
+
     } catch (e) {
         return res.status(500).send(e.message);
     }
