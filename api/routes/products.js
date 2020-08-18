@@ -5,11 +5,10 @@ const Product = require('../models/product');
 
 router.get('/product', async(req, res) => {
 
-    try{
+    try {
         let product = await Product.find({});
-    res.send(product);
-    }
-    catch(e){
+        res.send(product);
+    } catch (e) {
         res.status(500).send(e.message);
     }
 });
@@ -25,16 +24,16 @@ router.get('/product/:productId', async(req, res) => {
 });
 
 router.put('/product/:productId', async(req, res) => {
-    
-       const file = req.files.file;   
 
-        await file.mv(`../client/public/uploads/${file.name}`, function(err) {
-            if (err) {
-                console.log(err);
-                if (!file) res.status(400).send('Image should be uploaded ...');
-                res.status(500).send("Error uploading image...");
-            } 
-        });
+    const file = req.files.file;
+
+    await file.mv(`../client/public/uploads/${file.name}`, function(err) {
+        if (err) {
+            console.log(err);
+            if (!file) res.status(400).send('Image should be uploaded ...');
+            res.status(500).send("Error uploading image...");
+        }
+    });
     //update first approach   
     let product = await Product.findOneAndUpdate({ _id: req.params.heroId }, {
             $set: {
@@ -44,7 +43,7 @@ router.put('/product/:productId', async(req, res) => {
                 category: req.body.category,
                 imagePath: file.imagePath
             }
-        }, { new: true, useFindAndModify: false } 
+        }, { new: true, useFindAndModify: false }
 
     );
     res.send(await product.save());
@@ -53,9 +52,9 @@ router.put('/product/:productId', async(req, res) => {
 
 router.post('/product', async(req, res) => {
 
-    router.post('/', async(req, res) => {
+    const file = req.files.file;
 
-        const file = req.files.file;
+    try {
 
         await file.mv(`../client/public/uploads/${file.name}`, function(err) {
             if (err) {
@@ -73,11 +72,11 @@ router.post('/product', async(req, res) => {
             imagePath: file.name,
         });
 
-       
         res.send(await product.save());
-        
+    } catch (e) {
+        res.status(500).send(e.message);
+    }
 
-    });
 });
 
 module.exports = router;
