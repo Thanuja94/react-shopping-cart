@@ -3,6 +3,8 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const router = express.Router();
 const Admin = require('../models/admin');
+const validationFunction = require('../helpers/validationFunctions');
+
 
 const SECRET_KEY = "123456789";
 
@@ -11,6 +13,10 @@ router.post("/", async (req, res) => {
 
     try
     {
+        //add validation
+        if(!validationFunction.validEmail(req.body.email))
+            return res.status(500).send("Invalid Email");
+
         let salt = await bcrypt.genSalt(10);
         let hashedpw = await bcrypt.hash(req.body.password, salt);
 

@@ -9,7 +9,7 @@ const Admin = require("../models/admin");
 
 router.post("/", async (req, res) => {
     try {
-        let admin = await Admin.findOne({ email: req.body.email });
+        let admin = await Admin.findOne({ email: req.body.email, isActive: 1 });
         if (!admin) return res.status(400).send("Invalid email /password");
 
         let pwValid = await bcrypt.compare(req.body.password, admin.password);
