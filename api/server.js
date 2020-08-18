@@ -11,6 +11,7 @@ const port = process.env.PORT || config.port;
 
 var products = require('./routes/products');
 var admins = require('./routes/admins');
+const logger = require('./middlewares/logger');
 
 //#endregion
 
@@ -18,7 +19,7 @@ var app = express();
 
 
 //#region - middlewares
-
+app.use(logger);
 app.use(cors());
 app.use(fileUpload())
 app.use(bodyParser.urlencoded({ extended: false }));

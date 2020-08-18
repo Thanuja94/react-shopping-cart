@@ -14,7 +14,7 @@ router.get('/product', async(req, res) => {
     }
 });
 
-router.get('/:productId', async(req, res) => {
+router.get('/product/:productId', async(req, res) => {
     try {
         let product = await Product.findOne({ _id: req.params.productId } //Products that are match with params id
         );
@@ -24,7 +24,17 @@ router.get('/:productId', async(req, res) => {
     }
 });
 
-router.put('/:productId', async(req, res) => {
+router.put('/product/:productId', async(req, res) => {
+    
+       const file = req.files.file;   
+
+        await file.mv(`../client/public/uploads/${file.name}`, function(err) {
+            if (err) {
+                console.log(err);
+                if (!file) res.status(400).send('Image should be uploaded ...');
+                res.status(500).send("Error uploading image...");
+            } 
+        });
     //update first approach   
     let product = await Product.findOneAndUpdate({ _id: req.params.heroId }, {
             $set: {
@@ -32,12 +42,12 @@ router.put('/:productId', async(req, res) => {
                 price: req.body.price,
                 qty: req.body.qty,
                 category: req.body.category,
-                imagePath: file.name
+                imagePath: file.imagePath
             }
-        }, { new: true, useFindAndModify: false }
+        }, { new: true, useFindAndModify: false } 
 
     );
-    res.send(product);
+    res.send(await product.save());
 
 });
 
