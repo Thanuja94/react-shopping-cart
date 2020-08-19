@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const morgan = require('morgan');
 const mongoose = require('mongoose');
 const fileUpload = require('express-fileupload');
 const config = require('./config/config'); // global config file
