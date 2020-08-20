@@ -2,8 +2,9 @@ const express = require('express');
 const router = express.Router();
 const commonFunctions = require('../helpers/commonFunctions');
 const Product = require('../models/product');
+const { productValidationRules, validate } = require('../middlewares/validator');
 
-router.get('/product', async(req, res) => {
+router.get('/products', async(req, res) => {
 
     try {
         let product = await Product.find({});
@@ -13,7 +14,7 @@ router.get('/product', async(req, res) => {
     }
 });
 
-router.get('/product/:productId', async(req, res) => {
+router.get('/products/:productId', async(req, res) => {
     try {
         let product = await Product.findOne({ _id: req.params.productId } //Products that are match with params id
         );
@@ -22,8 +23,8 @@ router.get('/product/:productId', async(req, res) => {
         res.status(500).send(e.message);
     }
 });
-
-router.put('/product/:productId', async(req, res) => {
+ 
+router.put('/products/:productId',productValidationRules(), validate , async(req, res) => {
 
     const file = req.files.file;
 
@@ -50,7 +51,7 @@ router.put('/product/:productId', async(req, res) => {
 
 });
 
-router.post('/product', async(req, res) => {
+router.post('/products', async(req, res) => {
 
     const file = req.files.file;
 
