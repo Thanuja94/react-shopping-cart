@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt");
 const router = express.Router();
 const Admin = require('../models/admin');
 const validationFunction = require('../helpers/validationFunctions');
+const { Validator } = require('node-input-validator');
 
 
 const SECRET_KEY = "123456789";
@@ -13,9 +14,24 @@ router.post("/", async (req, res) => {
 
     try
     {
-        //add validation
-        if(!validationFunction.validEmail(req.body.email))
-            return res.status(500).send("Invalid Email");
+        const v = new Validator(req.body, {
+            name: 'required',
+            email: 'required|email',
+            password: 'required'
+        });
+
+        const matched = await v.check();
+
+        if (!matched) {
+            // res.status = 422;
+            // res.body = v.errors;
+            return res.status(422).send(v.errors);
+        }
+
+
+        // //add validationFunction
+        // if(!validationFunction.validEmail(req.body.email))
+        //     return res.status(500).send("Invalid Email");
 
         let salt = await bcrypt.genSalt(10);
         let hashedpw = await bcrypt.hash(req.body.password, salt);

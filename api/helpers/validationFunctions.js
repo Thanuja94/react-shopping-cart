@@ -1,9 +1,13 @@
+var validator = require("email-validator");
+
+
 module.exports = {
 
     validEmail: (email) => {
 
-        if (email === null || email =='') return false
-
-        return true
+        if(validator.validate(email)){
+            return true
+        }
+        return false
     }
 }
