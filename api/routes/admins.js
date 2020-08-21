@@ -7,7 +7,7 @@ const validationFunction = require('../helpers/validationFunctions');
 const { Validator } = require('node-input-validator');
 
 
-const SECRET_KEY = "123456789";
+
 
 
 router.post("/", async (req, res) => {
