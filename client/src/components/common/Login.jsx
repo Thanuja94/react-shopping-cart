@@ -1,8 +1,54 @@
 import React, {Component} from "react";
 import '../../assets/css/login.css';
+import {Link} from "react-router-dom";
+import axios from "axios";
 
 class Login extends Component {
-    state = {};
+    constructor(props) {
+        super(props);
+        this.state = {
+            username: null,
+            password: null,
+            visibility: "hidden",
+            isError: false
+        };
+    }
+
+    myChangeHandler = (event) => {
+        let nam = event.target.name;
+        let val = event.target.value;
+        this.setState({[nam]: val});
+    }
+
+    onSubmitHandler = (event) => {
+        event.preventDefault();
+
+        this.checkAuth(this.state)
+
+        // console.log(this.state)
+    }
+
+    async checkAuth(user) {
+
+        await axios.post('http://localhost:3000/api/admin/auth', {
+            email: user.username,
+            password: user.password,
+        }).then(response => {
+            // do stuff
+            this.setState({isError: false})
+            console.log(response);
+        })
+            .catch(err => {
+                if (err.response) {
+                    this.setState({isError: true})
+                    console.log(err.response)
+                } else if (err.request) {
+                    // client never received a response, or request never left
+                } else {
+                    // anything else
+                }
+            })
+    }
 
     render() {
         return (
@@ -19,23 +65,37 @@ class Login extends Component {
                             </div>
                         </div>
                         <div className="card-body">
-                            <form>
+                            <form onSubmit={this.onSubmitHandler}>
                                 <div className="input-group form-group">
                                     <div className="input-group-prepend">
                                         <span className="input-group-text"><i className="fa fa-user"></i></span>
                                     </div>
-                                    <input type="text" className="form-control" placeholder="username"/>
+                                    <input type="text" className="form-control" name="username"
+                                           onChange={this.myChangeHandler} placeholder="username"/>
 
                                 </div>
                                 <div className="input-group form-group">
                                     <div className="input-group-prepend">
                                         <span className="input-group-text"><i className="fa fa-key"></i></span>
                                     </div>
-                                    <input type="password" className="form-control" placeholder="password"/>
+                                    <input type="password" className="form-control" name="password"
+                                           onChange={this.myChangeHandler} placeholder="password"/>
                                 </div>
-                                <div className="row align-items-center remember">
-                                    {/*<input type="checkbox">Remember Me </input>*/}
-                                </div>
+                                {(() => {
+                                    if (this.state.isError) {
+                                        return (
+                                            <div>
+                                                <div className="d-flex justify-content-center links"
+                                                     style={{color: "red"}}>
+                                                    Username or Password is Incorrect.
+                                                </div>
+                                                <br/>
+                                            </div>
+                                        )
+                                    }
+                                })()}
+
+
                                 <div className="form-group">
                                     {/*<input type="submit" value="Login" className="btn float-right login_btn"/>*/}
                                     <button type="submit" className="btn btn-warning float-right">Login</button>
@@ -44,7 +104,8 @@ class Login extends Component {
                         </div>
                         <div className="card-footer">
                             <div className="d-flex justify-content-center links">
-                                Don't have an account?<a href="#">Sign Up</a>
+                                Don't have an account?
+                                <a href="" onClick={() => this.toSignUp('/signup')}> Sign Up </a>
                             </div>
                             <div className="d-flex justify-content-center">
                                 <a href="#">Forgot your password?</a>
@@ -54,6 +115,10 @@ class Login extends Component {
                 </div>
             </div>
         );
+    }
+
+    toSignUp(path) {
+        this.props.history.push(path);
     }
 }
 
