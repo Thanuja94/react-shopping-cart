@@ -1,12 +1,13 @@
 const { body, validationResult } = require('express-validator');
 
 const productValidationRules = () => {
+
   return [
-    body('productName').isAlpha(), //checking if product name has only charactors      
+    body('productName').exists().isAlpha(), //checking if product name has only charactors      
     body('price').exists(),// checking if price is exist
-    body('qty').isNumeric(), //checking if quantity value is numeric
+    body('qty').exists().isNumeric(), //checking if quantity value is numeric
     body('category').exists(),//checking if category is exist
-    body('imagePath') //checking if imagePath is exist
+    body('file') //checking if imagePath is exist
   ]
 }
 
