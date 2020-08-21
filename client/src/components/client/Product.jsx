@@ -1,9 +1,12 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { Config } from "./../../config";
+import Modal from "react-modal";
+
 
 class Product extends Component {
     state = {
-        products: []
+        products: [{_id:122, imagePath: '16-166509_chester-bennington-full-hd.jpg', title:'winter is comming' }]
     };
     render() {
         return (
@@ -15,13 +18,13 @@ class Product extends Component {
                       href={"#" + product._id}
                       onClick={() => this.openModal(product)}
                     >
-                      <img src={product.image} alt={product.title}></img>
+                      <img src={Config.IMAGE_PATH + product.imagePath} alt={product.title}></img>
                       <p>{product.title}</p>
                     </a>
                     <div className="product-price">
                       <div>23</div>
                       <button
-                        onClick={() => this.props.addToCart(product)}
+                        onClick={() => this.addToCart(product)}
                         className="button primary"
                       >
                         Add To Cart
@@ -32,6 +35,10 @@ class Product extends Component {
               ))}
             </ul>
         );
+    }
+
+    addToCart(){
+        console.log('adding to cart..')
     }
 }
 
