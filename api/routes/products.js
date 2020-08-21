@@ -25,18 +25,18 @@ router.get('/products/:productId', async(req, res) => {
 });
  
 router.put('/products/:productId',productValidationRules(), validate , async(req, res) => {
-
+    
     const file = req.files.file;
-
+try{
     await file.mv(`../client/public/uploads/${file.name}`, function(err) {
         if (err) {
             console.log(err);
             if (!file) res.status(400).send('Image should be uploaded ...');
-            res.status(500).send("Error uploading image...");
+            res.status(500).send("Error uploading image...");  
         }
     });
     //update first approach   
-    let product = await Product.findOneAndUpdate({ _id: req.params.heroId }, {
+    let product = await Product.findOneAndUpdate({ _id: req.params.productId }, {
             $set: {
                 name: req.body.productName,
                 price: req.body.price,
@@ -47,7 +47,12 @@ router.put('/products/:productId',productValidationRules(), validate , async(req
         }, { new: true, useFindAndModify: false }
 
     );
+
     res.send(await product.save());
+}
+   catch(e){
+    res.status(500).send(e.message);
+   }
 
 });
 
@@ -70,7 +75,7 @@ router.post('/products', async(req, res) => {
             price: req.body.price,
             qty: req.body.qty,
             category: req.body.category,
-            imagePath: file.name,
+            imagePath: file.imagePath,
         });
 
         res.send(await product.save());
