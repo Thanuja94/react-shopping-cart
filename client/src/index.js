@@ -4,7 +4,7 @@ import './index.css';
 import './assets/css/main.css';
 import 'font-awesome/css/font-awesome.min.css';
 import { BrowserRouter, Route } from "react-router-dom";
-import App from './App';
+// import App from './App';
 import * as serviceWorker from './serviceWorker';
 import NavBar from "./components/common/NavBar";
 import Footer from "./components/common/Footer";
