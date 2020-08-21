@@ -18,7 +18,7 @@ class Product extends Component {
                       href={"#" + product._id}
                       onClick={() => this.openModal(product)}
                     >
-                      <img src={'../public/uploads/' + product.imagePath} alt={product.title}></img>
+                      <img src={'http://localhost:5000/uploads/' + product.imagePath} alt={product.title}></img>
                       <p>{product.title}</p>
                     </a>
                     <div className="product-price">
