@@ -7,9 +7,6 @@ const validationFunction = require('../helpers/validationFunctions');
 const { Validator } = require('node-input-validator');
 
 
-
-
-
 router.post("/", async (req, res) => {
 
     try
