@@ -7,13 +7,14 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import NavBar from "./components/common/NavBar";
 import Footer from "./components/common/Footer";
+import Product from "./components/client/Product";
 import Login from "./components/common/Login";
 import "bootstrap/dist/css/bootstrap.css";
 
 ReactDOM.render(
     <BrowserRouter>
         <NavBar />
-        <Login />
+        <Product />
         <Footer />
         {/*<Route exact path="/" component={Home} />*/}
         {/*<Route exact path="/heroes" component={Heroes} />*/}
