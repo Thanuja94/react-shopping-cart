@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import '../../assets/css/login.css';
+import {Link} from "react-router-dom";
 
 class Login extends Component {
     state = {};
@@ -44,7 +45,8 @@ class Login extends Component {
                         </div>
                         <div className="card-footer">
                             <div className="d-flex justify-content-center links">
-                                Don't have an account?<a href="#">Sign Up</a>
+                                Don't have an account?
+                                <a href="" onClick={() => this.toSignUp('/signup') }> Sign Up </a>
                             </div>
                             <div className="d-flex justify-content-center">
                                 <a href="#">Forgot your password?</a>
@@ -54,6 +56,10 @@ class Login extends Component {
                 </div>
             </div>
         );
+    }
+
+    toSignUp(path) {
+        this.props.history.push(path);
     }
 }
 

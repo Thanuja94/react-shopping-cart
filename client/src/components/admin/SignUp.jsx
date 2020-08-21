@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import { Link } from 'react-router-dom'
 import '../../assets/css/login.css';
 
 class Login extends Component {
@@ -51,16 +52,18 @@ class Login extends Component {
                         </div>
                         <div className="card-footer">
                             <div className="d-flex justify-content-center links">
-                                Already have an account?<a href="#">Login</a>
-                            </div>
-                            <div className="d-flex justify-content-center">
-                                <a href="#">Forgot your password?</a>
+                                Already have an account?
+                                <a href="" onClick={() => this.toLogin('/login') }> Login </a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         );
+    }
+
+    toLogin(path) {
+        this.props.history.push(path);
     }
 }
 

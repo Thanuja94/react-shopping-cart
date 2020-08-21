@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+// import '../../assets/css/main.css';
 import { Link } from "react-router-dom";
 import { Config } from "./../../config";
 import Modal from "react-modal";

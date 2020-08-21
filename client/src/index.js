@@ -15,9 +15,20 @@ import "bootstrap/dist/css/bootstrap.css";
 
 ReactDOM.render(
     <BrowserRouter>
+
         <NavBar />
-        <SignUp />
-        {/*<Login />*/}
+        <Route exact path="/" component={Login} />
+        <Route exact path="/products" component={Product} />
+        <Route exact path="/admin" component={Login} />
+        <Route exact path="/signup" component={SignUp} />
+        <Route exact path="/login" component={Login} />
+
+
+
+        {/*<NavBar />*/}
+        {/*/!*<Product />*!/*/}
+        {/*/!*<Login />*!/*/}
+        {/*<SignUp />*/}
         <Footer />
         {/*<Route exact path="/" component={Home} />*/}
         {/*<Route exact path="/heroes" component={Heroes} />*/}
