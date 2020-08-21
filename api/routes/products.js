@@ -3,6 +3,7 @@ const router = express.Router();
 const commonFunctions = require('../helpers/commonFunctions');
 const Product = require('../models/product');
 const { productValidationRules, validate } = require('../middlewares/validator');
+const { Validator } = require('node-input-validator');
 
 router.get('/products', async(req, res) => {
 
@@ -59,8 +60,22 @@ try{
 router.post('/products', async(req, res) => {
 
     const file = req.files.file;
+    console.log(req.files.file)
 
     try {
+
+        const validationObj = new Validator(req.body, {
+            productName: 'required|minLength:5',
+            price: 'required|integer',
+            qty: 'required|integer',
+            category: 'required',
+            files: 'object'
+        });
+
+        // validate user input
+        if (!await validationObj.check()) {
+            return res.status(422).send(validationObj.errors);
+        }
 
         await file.mv(`../client/public/uploads/${file.name}`, function(err) {
             if (err) {

@@ -9,5 +9,6 @@ module.exports = {
     audience: 'mysite.com', // to verify token audience with this value
     searchLimit: 100, // Search limit config, Change this to set the search limit 
     deploy: true, // to toggle between dev mode and deoply mode : loggin with auth header when true
-    product_categories: ['Mobile phones', 'Laptops', 'Accessories', 'Smart watches']
+    product_categories: ['Mobile phones', 'Laptops', 'Accessories', 'Smart watches'],
+    SECRET_KEY : "123456789"
 }
