@@ -37,7 +37,8 @@ class Login extends Component {
                                     {/*<input type="checkbox">Remember Me </input>*/}
                                 </div>
                                 <div className="form-group">
-                                    <input type="submit" value="Login" className="btn float-right login_btn"/>
+                                    {/*<input type="submit" value="Login" className="btn float-right login_btn"/>*/}
+                                    <button type="submit" className="btn btn-warning float-right">Login</button>
                                 </div>
                             </form>
                         </div>
