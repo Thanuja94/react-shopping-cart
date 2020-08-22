@@ -6,6 +6,8 @@ import { BrowserRouter, Route, Link } from "react-router-dom";
 import AdminPortal from "./Portals/AdminPortal";
 import StorePortal from "./Portals/StorePortal";
 import SignUp from "./components/admin/SignUp";
+import Footer from "./components/common/Footer";
+import NavBar from "./components/common/NavBar";
 
 
 class App extends React.Component {
@@ -13,16 +15,13 @@ class App extends React.Component {
     return (
         <BrowserRouter>
           <div className="grid-container">
-            <header>
-              <Link to="/">Store</Link>
-              <Link to="/admin">Admin</Link>
-            </header>
+            <NavBar/>
+            <Footer/>
             <main>
               <Route path="/admin" component={AdminPortal} />
               <Route path="/" component={StorePortal} exact />
               <Route path="/signup" component={SignUp} exact />
             </main>
-            <footer>All right is reserved. Codefourr</footer>
           </div>
         </BrowserRouter>
     );
