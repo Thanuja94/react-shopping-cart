@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Product from "./../components/client/Product";
 import Cart from "./../components/client/Cart";
 import data from "./../data.json";
-import LocalStorageService from "../services/localstorage_service";
+import { LocalStorageService } from "../services/localstorage_service";
 
 export default class StorePortal extends Component {
     constructor() {
