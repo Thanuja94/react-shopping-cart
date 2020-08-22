@@ -34,14 +34,14 @@ class Product extends Component {
           ) : (
             <ul className="products">
               {this.props.products.map((product) => (
-                <li key={product._id}>
+                <li key={product.id}>
                   <div className="product">
                     <a
-                      href={"#" + product._id}
+                      href={"#" + product.id}
                       onClick={() => this.openModal(product)}
                     >
-                      <img src={product.image} alt={product.title}></img>
-                      <p>{product.title}</p>
+                      <img src={'/uploads/'+product.imagePath} alt={product.name}></img>
+                      <p>{product.name}</p>
                     </a>
                     <div className="product-price">
                       <div>{product.price}</div>
@@ -65,10 +65,10 @@ class Product extends Component {
                 x
               </button>
               <div className="product-details">
-                <img src={product.image} alt={product.title}></img>
+                <img src={product.imagePath} alt={product.name}></img>
                 <div className="product-details-description">
                   <p>
-                    <strong>{product.title}</strong>
+                    <strong>{product.name}</strong>
                   </p>
                   <p>{product.description}</p>
                   <p>

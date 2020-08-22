@@ -3,6 +3,7 @@ import Product from "./../components/client/Product";
 import Cart from "./../components/client/Cart";
 import data from "./../data.json";
 import { LocalStorageService } from "../services/localstorage_service";
+import axios from "axios";
 
 export default class StorePortal extends Component {
     constructor() {
@@ -53,6 +54,24 @@ export default class StorePortal extends Component {
                 </div>
             </div>
         );
+    }
+
+    async componentDidMount(){
+        let {data} = await axios.get('http://localhost:3000/api/products');
+        console.log(data);
+
+        let StoreProducts = data.map((product) =>
+        {
+            return {
+                id: product._id,
+                name: product.name,
+                price: product.price,
+                qty: product.qty,
+                category: product.category,
+                imagePath: product.imagePath
+            };
+        });
+        this.setState({ products: StoreProducts });
     }
  
 }
