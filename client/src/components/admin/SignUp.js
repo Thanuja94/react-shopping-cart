@@ -1,13 +1,13 @@
 import React, {Component} from "react";
-import { Link } from 'react-router-dom'
 import '../../assets/css/login.css';
 
-class Login extends Component {
+class SignUp extends Component {
     state = {};
 
     render() {
         return (
             <div className="container">
+                here sign up users to admin table
                 <br/>
                 <br/>
                 <br/>
@@ -67,4 +67,4 @@ class Login extends Component {
     }
 }
 
-export default Login;
+export default SignUp;
