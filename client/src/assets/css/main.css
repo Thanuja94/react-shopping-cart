@@ -1,12 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
 
-/*html {*/
-/*  font-size: 62.5%;*/
-/*  box-sizing: border-box;*/
-/*}*/
+html {
+  font-size: 13px;
+  box-sizing: border-box;
+}
 body,
 #root {
-  /*height: 100vh;*/
+  height: 100vh;
   margin: 0;
 }
 body,
@@ -21,9 +21,9 @@ textarea {
 .grid-container {
   display: grid;
   grid-template-areas:
-    "header"
-    "main"
-    "footer";
+          "header"
+          "main"
+          "footer";
   grid-template-rows: 5rem 1fr 5rem;
   grid-template-columns: 1fr;
   height: 100%;
@@ -53,8 +53,9 @@ main {
 footer {
   grid-area: footer;
   background-color: #203040;
-  /*color: #ffffff;*/
+  color: #ffffff;
   display: flex;
+  font-size: 13px;
   justify-content: center;
   align-items: center;
 }

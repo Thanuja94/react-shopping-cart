@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import '../../assets/css/main.css';
 import Fade from "react-reveal/Fade";
 import Modal from "react-modal";
 import Zoom from "react-reveal/Zoom";
