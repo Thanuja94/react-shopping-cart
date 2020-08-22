@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Product from "./../components/client/Product";
 import Cart from "./../components/client/Cart";
 import data from "./../data.json";
+import LocalStorageService from "../services/localstorage_service";
 
 export default class StorePortal extends Component {
     constructor() {
@@ -12,8 +13,6 @@ export default class StorePortal extends Component {
         };
     }
     addToCart = (product) => {
-
-        console.log(product)
 
         const cartItems = this.state.cartItems.slice();
         let isAdded = false;
@@ -27,9 +26,9 @@ export default class StorePortal extends Component {
         if(!isAdded){
             cartItems.push({...product, count: 1});
         }
-        console.log(cartItems);
 
         this.setState({cartItems});
+        LocalStorageService.save(cartItems);
 
     }
     removeFromCart = (product)=> {
