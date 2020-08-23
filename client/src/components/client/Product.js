@@ -14,7 +14,7 @@ class Product extends Component {
     };
   }
   componentDidMount() {
-    //this.props.fetchProducts();
+    
   }
   openModal = (product) => {
     this.setState({ product });
@@ -100,12 +100,6 @@ class Product extends Component {
     );
   }
 }
-// export default connect(
-//   (state) => ({ products: state.products.filteredItems }),
-//   {
-//     fetchProducts,
-//     addToCart,
-//   }
-// )(Products);
+
 
 export default Product

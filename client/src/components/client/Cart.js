@@ -1,10 +1,7 @@
 import React, { Component } from "react";
 import Fade from "react-reveal/Fade";
-//import { connect } from "react-redux";
 import Modal from "react-modal";
 import Zoom from "react-reveal/Zoom";
-//import { removeFromCart } from "../actions/cartActions";
-//import { createOrder, clearOrder } from "../actions/orderActions";
 
 class Cart extends Component {
   constructor(props) {
@@ -14,8 +11,34 @@ class Cart extends Component {
       email: "",
       address: "",
       showCheckout: false,
+      long: '',
+      lat: ''
     };
+
+    this.getLocation = this.getLocation.bind(this);
+    this.getCoodinates = this.getCoodinates.bind(this);
   }
+
+  componentDidMount() {
+    this.getLocation();
+  }
+
+  getCoodinates(position) {
+    console.log(position)
+    this.setState({ lat: position.coords.latitude, long: position.coords.longitude });
+
+    console.log(this.state)
+  }
+
+  getLocation() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(this.getCoodinates);
+    } else {
+      alert('browser doesn not support ...')
+    }
+  }
+
+
   handleInput = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
@@ -40,10 +63,10 @@ class Cart extends Component {
         {cartItems.length === 0 ? (
           <div className="cart cart-header">Cart is empty</div>
         ) : (
-          <div className="cart cart-header">
-            You have {cartItems.length} in the cart{" "}
-          </div>
-        )}
+            <div className="cart cart-header">
+              You have {cartItems.length} in the cart{" "}
+            </div>
+          )}
 
         {order && (
           <Modal isOpen={true} onRequestClose={this.closeModal}>
@@ -97,7 +120,7 @@ class Cart extends Component {
                 {cartItems.map((item) => (
                   <li key={item.id}>
                     <div>
-                      <img src={'/uploads/'+item.imagePath} alt={item.title}></img>
+                      <img src={'/uploads/' + item.imagePath} alt={item.title}></img>
                     </div>
                     <div>
                       <div>{item.title}</div>
@@ -176,6 +199,9 @@ class Cart extends Component {
                       </ul>
                     </form>
                   </div>
+                  <img src={"https://maps.googleapis.com/maps/api/staticmap?center=" + this.state.lat + "," + this.state.long + "&zoom=14&size=400x300&sensor=false&markers=color:red%7C" + this.state.lat + "," + this.state.long + "&key=AIzaSyD5LkQwfaKd8SpU10fhMYwNR0F676A_t1g"}  id="map_image"  class="cart"/>
+
+
                 </Fade>
               )}
             </div>
@@ -185,13 +211,5 @@ class Cart extends Component {
     );
   }
 }
-
-// export default connect(
-//   (state) => ({
-//     order: state.order.order,
-//     cartItems: state.cart.cartItems,
-//   }),
-//   { removeFromCart, createOrder, clearOrder }
-// )(Cart);
 
 export default Cart
