@@ -43,7 +43,7 @@ class Product extends Component {
                       <p>{product.name}</p>
                     </a>
                     <div className="product-price">
-                      <div>{product.price}</div>
+              <div>{product.price} {product.currencySymbol}</div>
                       <button
                         onClick={() => this.props.addToCart(product)}
                         className="button primary"

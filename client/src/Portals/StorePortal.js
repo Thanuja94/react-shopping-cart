@@ -44,7 +44,7 @@ export default class StorePortal extends Component {
     convertCurrency = async (event) => {
 
         this.setState({ currency: event.target.value });
-
+        let currencySymbol = event.target.value;
         let { data } = await axios.get('https://api.exchangeratesapi.io/latest?symbols=USD,' + event.target.value);
         let convertedPrice = data.rates[Object.keys(data.rates)[1]];
 
@@ -56,6 +56,7 @@ export default class StorePortal extends Component {
             console.log(this.state.products);
             products.forEach((product) => {
                 product.price = Math.round(product.price * convertedPrice);
+                product.currencySymbol = currencySymbol;
             });
 
             this.setState({ products: products });
@@ -101,7 +102,8 @@ export default class StorePortal extends Component {
                 price: product.price,
                 qty: product.qty,
                 category: product.category,
-                imagePath: product.imagePath
+                imagePath: product.imagePath,
+                currencySymbol:'USD'
             };
         });
 
