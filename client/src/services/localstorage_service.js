@@ -1,6 +1,6 @@
 const LocalStorageService = {
-    get(obj) {
-        return localStorage.getItem(obj)
+    get() {
+        return localStorage.getItem('cartItems')
     },
 
     save(value) {

@@ -1,6 +1,6 @@
 import axios from 'axios'
-import { TokenService } from './localStorage'
-import { Config } from './../config'
+
+const baseURL = '';
 
 const ApiService = {
 
@@ -8,16 +8,16 @@ const ApiService = {
         axios.defaults.baseURL = baseURL;
     },
 
-    setHeader() {
-        axios.defaults.headers.common["Authorization"] = `Bearer ${TokenService.getToken()}`
+    setHeader(token) {
+        axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
     },
 
     removeHeader() {
         axios.defaults.headers.common = {}
     },
 
-    get(resource) {
-        return axios.get(resource)
+    get(url) {
+        return axios.get(url)
     },
 
     post(resource, data) {
