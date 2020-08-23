@@ -7,10 +7,6 @@ class SignUp extends Component {
     render() {
         return (
             <div className="container">
-                here sign up users to admin table
-                <br/>
-                <br/>
-                <br/>
                 <div className="d-flex justify-content-center h-100">
                     <div className="card">
                         <div className="card-header">
@@ -53,7 +49,7 @@ class SignUp extends Component {
                         <div className="card-footer">
                             <div className="d-flex justify-content-center links">
                                 Already have an account?
-                                <a href="" onClick={() => this.toLogin('/login') }> Login </a>
+                                <a href="" onClick={() => this.toLogin('/admin/login') }> Login </a>
                             </div>
                         </div>
                     </div>
@@ -63,6 +59,7 @@ class SignUp extends Component {
     }
 
     toLogin(path) {
+        // alert("came")
         this.props.history.push(path);
     }
 }

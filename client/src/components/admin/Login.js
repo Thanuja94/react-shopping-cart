@@ -1,6 +1,9 @@
 import React, {Component} from "react";
 import '../../assets/css/login.css';
 import axios from "axios";
+import {withRouter} from 'react-router-dom';
+
+
 
 class Login extends Component {
     constructor(props) {
@@ -35,6 +38,8 @@ class Login extends Component {
         }).then(response => {
             // do stuff
             this.setState({isError: false})
+            // this.toHome('/admin/home')
+            this.props.history.push('/admin/home');
             console.log(response);
         })
             .catch(err => {
@@ -60,9 +65,6 @@ class Login extends Component {
                         <div className="card">
                             <div className="card-header">
                                 <h3>Sign In</h3>
-                            {/*    <div className="d-flex justify-content-end social_icon">*/}
-                            {/*        <span><i className="fa fa-google"></i></span>*/}
-                            {/*    </div>*/}
                             </div>
                             <div className="card-body">
                                 <form onSubmit={this.onSubmitHandler}>
@@ -103,10 +105,10 @@ class Login extends Component {
                                 </form>
                             </div>
                             <div className="card-footer">
-                                {/*<div className="d-flex justify-content-center links">*/}
-                                {/*    Don't have an account?*/}
-                                {/*    <a href="" onClick={() => this.toSignUp('/signup')}> Sign Up </a>*/}
-                                {/*</div>*/}
+                                <div className="d-flex justify-content-center links">
+                                    Don't have an account?
+                                    <a href="" onClick={() => this.toHome('/admin/signup')}> Sign Up </a>
+                                </div>
                                 <div className="d-flex justify-content-center">
                                     <a href="#">Forgot your password?</a>
                                 </div>
@@ -118,9 +120,9 @@ class Login extends Component {
         );
     }
 
-    toSignUp(path) {
+    toHome(path) {
         this.props.history.push(path);
     }
 }
 
-export default Login;
+export default withRouter(Login);
