@@ -65,21 +65,21 @@ class Home extends Component {
                         </div>
                     </div>
 
-                    {/*<div className="col-md-4 col-xl-3">*/}
-                    {/*    <div className="card bg-c-pink order-card">*/}
-                    {/*        <div className="card-block">*/}
-                    {/*            <h6 className="m-b-20">Payment Received</h6>*/}
-                    {/*            <h2 className="text-right"><i*/}
-                    {/*                className="fa fa-credit-card f-left"></i><span>486</span></h2>*/}
-                    {/*            <p className="m-b-0">Completed Orders<span className="f-right">351</span></p>*/}
-                    {/*        </div>*/}
-                    {/*        <div className="card-block">*/}
-                    {/*            <a href="#" className="small-box-footer text-white">Add New*/}
-                    {/*                <i className="fa fa-plus-circle float-right"></i>*/}
-                    {/*            </a>*/}
-                    {/*        </div>*/}
-                    {/*    </div>*/}
-                    {/*</div>*/}
+                    <div className="col-md-4 col-xl-3">
+                        <div className="card bg-c-pink order-card">
+                            <div className="card-block">
+                                <h6 className="m-b-20">Payment Received</h6>
+                                <h2 className="text-right"><i
+                                    className="fa fa-credit-card f-left"></i><span>486</span></h2>
+                                <p className="m-b-0">Completed Orders<span className="f-right">351</span></p>
+                            </div>
+                            <div className="card-block">
+                                <a href="#" className="small-box-footer text-white">Add New
+                                    <i className="fa fa-plus-circle float-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
             </div>
