@@ -10,6 +10,7 @@ import Footer from "./components/common/Footer";
 import NavBar from "./components/common/NavBar";
 import Home from "./components/admin/Home"
 import Login from "./components/admin/Login"
+import AdminList from "./components/admin/AdminList";
 
 
 class App extends React.Component {
@@ -25,6 +26,7 @@ class App extends React.Component {
                         <Route path="/admin/home" component={Home} exact/>
                         <Route path="/admin/login" component={Login} exact/>
                         <Route path="/admin/signup" component={SignUp} exact/>
+                        <Route path="/admin/adminlist" component={AdminList} exact/>
                     </main>
                     <Footer/>
 
