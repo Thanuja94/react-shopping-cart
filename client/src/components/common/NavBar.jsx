@@ -5,7 +5,7 @@ class NavBar extends Component {
     state = {};
     render() {
         return (
-            <nav className="navbar" style={{background:"#FFC312"}}>
+            <nav className="navbar" style={{background:"#FFC312",color:"white"}}>
                 <Link to="/">Store</Link>
                 <Link to="/admin">Admin</Link>
             </nav>

@@ -8,7 +8,7 @@ class SignUp extends Component {
         return (
             <div className="container">
                 <div className="d-flex justify-content-center h-100">
-                    <div className="card">
+                    <div className="card dark-background">
                         <div className="card-header">
                             <h3>Sign Up</h3>
 

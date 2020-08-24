@@ -62,7 +62,7 @@ class Login extends Component {
                     <br/>
                     <br/>
                     <div className="d-flex justify-content-center h-100">
-                        <div className="card">
+                        <div className="card dark-background">
                             <div className="card-header">
                                 <h3>Sign In</h3>
                             </div>

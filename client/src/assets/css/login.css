@@ -20,8 +20,12 @@ html,body{
     margin-bottom: auto;
     font-size: 15px;
     /*opacity: 0.5;*/
-    width: 400px;
+    /*width: 400px;*/
+}
+
+.dark-background{
     background-color: rgba(0,0,0,0.8) !important;
+
 }
 
 .social_icon span{
