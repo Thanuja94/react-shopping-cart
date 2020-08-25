@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Fade from "react-reveal/Fade";
 import Modal from "react-modal";
 import Zoom from "react-reveal/Zoom";
+import GoogleLogin from "react-google-login";
 
 class Cart extends Component {
   constructor(props) {
@@ -55,6 +56,14 @@ class Cart extends Component {
   };
   closeModal = () => {
     this.props.clearOrder();
+  };
+
+  responseSuccessGoogle = (response) => {
+    console.log(response);
+  };
+
+  responseErrorGoogle = (response) => {
+    console.log(response);
   };
   render() {
     const { cartItems, order } = this.props;
@@ -194,7 +203,16 @@ class Cart extends Component {
                         <li>
                           <button className="button primary" type="submit">
                             Checkout
-                          </button>
+                          </button> 
+                        </li>
+                        <li>
+                        `<GoogleLogin
+                            clientId="302156694036-4fdehcn3r55dv84nijrtogqbj4movmng.apps.googleusercontent.com"
+                            buttonText="Login"
+                            onSuccess={this.responseSuccessGoogle}
+                            onFailure={this.responseErrorGoogle}
+                            cookiePolicy={'single_host_origin'}
+                          />,`
                         </li>
                       </ul>
                     </form>
