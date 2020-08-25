@@ -20,15 +20,8 @@ router.post("/", async (req, res) => {
         const matched = await v.check();
 
         if (!matched) {
-            // res.status = 422;
-            // res.body = v.errors;
             return res.status(422).send(v.errors);
         }
-
-
-        // //add validationFunction
-        // if(!validationFunction.validEmail(req.body.email))
-        //     return res.status(500).send("Invalid Email");
 
         let salt = await bcrypt.genSalt(10);
         let hashedpw = await bcrypt.hash(req.body.password, salt);
@@ -90,6 +83,27 @@ router.put('/:userId', async(req, res) => {
 
     );
     res.send(await admin.save());
+
+});
+
+
+router.delete('/:userId',async(req,res)=>{
+    try{
+
+        let admin = await Admin.findOneAndUpdate({ _id: req.params.userId }, {
+                $set: {
+                    isActive: 0
+                }
+            }, { new: true, useFindAndModify: false }
+
+        );
+        res.send(await admin.save());
+
+    }
+
+    catch(e){
+        res.status(404).send(e);
+    }
 
 });
 

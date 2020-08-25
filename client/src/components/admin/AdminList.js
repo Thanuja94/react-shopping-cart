@@ -121,7 +121,7 @@ class AdminList extends Component {
                                                             return (
                                                                 <span className="text-danger font-12">
                                                             <i className="fa fa-close mr-1"></i>
-                                                            Active
+                                                            Inactive
                                                         </span>
                                                             )
                                                         }
