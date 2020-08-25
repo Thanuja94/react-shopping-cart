@@ -58,7 +58,7 @@ try{
     res.status(500).send(e.message);
    }
 
-});
+}); 
 
 router.post('/products', async(req, res) => {
 
