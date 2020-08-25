@@ -1,5 +1,8 @@
 import React, {Component} from "react";
 import {withRouter} from 'react-router';
+import axios from "axios";
+import {confirmAlert} from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
 class AdminList extends Component {
 
@@ -8,10 +11,77 @@ class AdminList extends Component {
 
     }
 
+    state = {
+        allAdmins: [],
+        rowNumber: 1,
+        isError:false,
+        errorMsg:'Internal Server Error!'
+    };
+
+    async componentDidMount() {
+
+        await axios.get('http://localhost:3000/api/admin', {
+
+        }).then(response => {
+            this.setState({isError: false})
+            let data=response.data
+
+            let admins = data.map((admin) => {
+                return {
+                    id: admin._id,
+                    name: admin.name,
+                    email: admin.email,
+                    isActive: admin.isActive,
+                };
+            });
+
+            this.setState({allAdmins: admins});
+        })
+            .catch(err => {
+                if (err.response) {
+                    let error=err.response
+                    this.setState({isError: true,errorMsg:error.statusText})
+                    console.log(err.response)
+                } else if (err.request) {
+                    // client never received a response, or request never left
+                } else {
+                    // anything else
+                }
+            })
+
+    }
+
+    submit = (adminId) => {
+        confirmAlert({
+            title: 'Confirm to Delete',
+            message: 'Are you sure to do this?',
+            buttons: [
+                {
+                    label: 'Yes',
+                    onClick: () => this.deleteAdmin(adminId)
+                },
+                {
+                    label: 'No'
+                }
+            ]
+        });
+    };
+
     render() {
         return (
             <div className="container-fluid">
                 <br/>
+
+                {(() => {
+                    if (this.state.isError) {
+                        return (
+                            <div className="alert alert-danger" role="alert">
+                                Error occurred.. {this.state.errorMsg}
+                            </div>
+                        )
+                    }
+                })()}
+
                 <div className="row">
                     <div className="col-lg-12">
                         <div className="card">
@@ -30,48 +100,53 @@ class AdminList extends Component {
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>Buddhimal Gunasekara</td>
-                                            <td>buddhimal@gmail.com</td>
-                                            <td>02/5/2019</td>
-                                            <td>
-                                                <span className="text-success font-12"><i
-                                                    className="mdi mdi-checkbox-blank-circle mr-1"></i> Active</span>
-                                            </td>
+                                        {this.state.allAdmins.map((admin) => (
 
-                                            <td>
-                                                <div className="action">
-                                                    <a href="#" className="text-success mr-4" data-toggle="tooltip"
-                                                       data-placement="top" title="" data-original-title="Edit"> <i
-                                                        className="fa fa-pencil h5 m-0"></i></a>
-                                                    <a href="#" className="text-danger" data-toggle="tooltip"
-                                                       data-placement="top" title="" data-original-title="Close"> <i
-                                                        className="fa fa-remove h5 m-0"></i></a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">2</th>
-                                            <td>Buddhimal Gunasekara</td>
-                                            <td>buddhimal@gmail.com</td>
-                                            <td>02/5/2019</td>
-                                            <td>
-                                                <span className="text-success font-12"><i
-                                                    className="mdi mdi-checkbox-blank-circle mr-1"></i> Active</span>
-                                            </td>
+                                            <tr key={this.state.rowNumber}>
+                                                <th scope="row">{this.state.rowNumber}</th>
+                                                <td>{admin.name}</td>
+                                                <td>{admin.email}</td>
+                                                <td></td>
+                                                <td>
+                                                    {(() => {
+                                                        this.state.rowNumber++;
+                                                        if (admin.isActive == 1) {
+                                                            return (
+                                                                <span className="text-success font-12">
+                                                            <i className="fa fa-check-circle mr-1"></i>
+                                                            Active
+                                                        </span>
+                                                            )
+                                                        } else {
+                                                            return (
+                                                                <span className="text-danger font-12">
+                                                            <i className="fa fa-close mr-1"></i>
+                                                            Active
+                                                        </span>
+                                                            )
+                                                        }
 
-                                            <td>
-                                                <div className="action">
-                                                    <a href="#" className="text-success mr-4" data-toggle="tooltip"
-                                                       data-placement="top" title="" data-original-title="Edit"> <i
-                                                        className="fa fa-pencil h5 m-0"></i></a>
-                                                    <a href="#" className="text-danger" data-toggle="tooltip"
-                                                       data-placement="top" title="" data-original-title="Close"> <i
-                                                        className="fa fa-remove h5 m-0"></i></a>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                                    })()}
+
+
+                                                </td>
+
+                                                <td>
+                                                    <div className="action">
+                                                        <a href="#" onClick={() => this.editAdmin(admin.id)}
+                                                           className="text-success mr-4" data-toggle="tooltip"
+                                                           data-placement="top" title="" data-original-title="Edit">
+                                                            <i className="fa fa-pencil h5 m-0"></i>
+                                                        </a>
+                                                        <a href="#" onClick={() => this.submit(admin.id)}
+                                                           className="text-danger" data-toggle="tooltip"
+                                                           data-placement="top" title="" data-original-title="Close">
+                                                            <i className="fa fa-remove h5 m-0"></i>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        ))}
                                         </tbody>
                                     </table>
                                 </div>
@@ -84,6 +159,14 @@ class AdminList extends Component {
         )
     }
 
+    async editAdmin(adminId) {
+        // alert(adminId)
+    }
+
+    async deleteAdmin(adminId) {
+        alert(adminId)
+        // this.submit();
+    }
 
 }
 
