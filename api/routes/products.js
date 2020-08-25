@@ -4,6 +4,7 @@ const commonFunctions = require('../helpers/commonFunctions');
 const Product = require('../models/product');
 const { productValidationRules, validate } = require('../middlewares/validator');
 const { Validator } = require('node-input-validator');
+const { findByIdAndDelete } = require('../models/product');
 
 router.get('/products', async(req, res) => {
 
@@ -19,6 +20,7 @@ router.get('/products/:productId', async(req, res) => {
     try {
         let product = await Product.findOne({ _id: req.params.productId } //Products that are match with params id
         );
+        if (!product) res.status(400).send('Product ID is not found!');
         res.send(product);
     } catch (e) {
         res.status(500).send(e.message);
@@ -36,6 +38,7 @@ try{
             res.status(500).send("Error uploading image...");  
         }
     });
+    
     //update first approach   
     let product = await Product.findOneAndUpdate({ _id: req.params.productId }, {
             $set: {
@@ -48,7 +51,7 @@ try{
         }, { new: true, useFindAndModify: false }
 
     );
-
+    if (!product) res.status(400).send('Product ID is not found!');
     res.send(await product.save());
 }
    catch(e){
@@ -99,5 +102,23 @@ router.post('/products', async(req, res) => {
     }
 
 });
+
+router.delete('/products/:productId',async(req,res)=>{
+    try{
+        let product = await Product.findByIdAndDelete(
+            {_id : req.params.productId}         
+            )
+            if (!product) res.status(400).send('Product ID is not found!');
+            res.send(product);
+        
+            }
+    
+    catch(e){
+        res.status(404).send(e);
+    }       
+
+});
+
+
 
 module.exports = router;

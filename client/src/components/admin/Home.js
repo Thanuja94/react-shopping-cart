@@ -58,7 +58,7 @@ class Home extends Component {
                                 <p className="m-b-0">New Admins<span className="f-right">2</span></p>
                             </div>
                             <div className="card-block">
-                                <a href="#" className="small-box-footer text-white">Add New
+                                <a href="#" className="small-box-footer text-white" onClick={() => this.toPage('/admin/adminlist')}>Add New
                                     <i className="fa fa-plus-circle float-right"></i>
                                 </a>
                             </div>
@@ -85,6 +85,10 @@ class Home extends Component {
             </div>
         )
 
+    }
+
+    toPage(path) {
+        this.props.history.push(path);
     }
 }
 
