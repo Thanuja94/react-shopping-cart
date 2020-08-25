@@ -86,4 +86,25 @@ router.put('/:userId', async(req, res) => {
 
 });
 
+
+router.delete('/:userId',async(req,res)=>{
+    try{
+
+        let admin = await Admin.findOneAndUpdate({ _id: req.params.userId }, {
+                $set: {
+                    isActive: 0
+                }
+            }, { new: true, useFindAndModify: false }
+
+        );
+        res.send(await admin.save());
+
+    }
+
+    catch(e){
+        res.status(404).send(e);
+    }
+
+});
+
 module.exports = router;
