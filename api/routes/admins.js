@@ -20,15 +20,8 @@ router.post("/", async (req, res) => {
         const matched = await v.check();
 
         if (!matched) {
-            // res.status = 422;
-            // res.body = v.errors;
             return res.status(422).send(v.errors);
         }
-
-
-        // //add validationFunction
-        // if(!validationFunction.validEmail(req.body.email))
-        //     return res.status(500).send("Invalid Email");
 
         let salt = await bcrypt.genSalt(10);
         let hashedpw = await bcrypt.hash(req.body.password, salt);
