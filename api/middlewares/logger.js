@@ -1,29 +1,30 @@
 const morgan = require('morgan');
 const fs = require('fs');
 const path = require('path');
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
+
+ 
 
 const getIdLogger = router.get('/api/products/',async function (req, res, next) {
-  const accessLogStream = await fs.createWriteStream(path.join(__dirname, 'userLogs.log'), { flags: 'a' }); // creating a log file for get requests
+  const accessLogStream = fs.createWriteStream(path.join(__dirname, 'userLogs.log'),{flags: "a"}); // creating a log file for get requests
 
-  router.use(morgan(':id :method :url :date',{
-    interval: '7d',
-    stream: accessLogStream  
-  }));
- 
-  morgan.token('id', (req) => req.id );//This adds an ID to all requests and saves it using the :id token. 
-  req.id = req.params.productId;//reqesting params value
-
+   router.use(morgan('combined',{
+    interval: '7d', // logs will rotate every week
+    stream: accessLogStream  ,
+    noColors: true 
+  })); 
+  
   next(); 
 });
 
 const getLogger = router.get('/api/products/:productId',async function (req, res, next) {
-  const accessLogStream = await fs.createWriteStream(path.join(__dirname, 'userLogs.log'), { flags: 'a' }); // creating a log file for get requests
+  const accessLogStream = await fs.createWriteStream(path.join(__dirname, 'userLogs.log'),{flags: "a"}); // creating a log file for get requests
 
-  router.use(morgan(':id :method :url :date',{
-    interval: '7d',
-    stream: accessLogStream  
+    await router.use(morgan('combined',{
+    interval: '7d',  // logs will rotate every week
+    stream: accessLogStream  ,
+    noColors: true 
   }));
  
   morgan.token('id', (req) => req.id );//This adds an ID to all requests and saves it using the :id token. 
@@ -33,24 +34,23 @@ const getLogger = router.get('/api/products/:productId',async function (req, res
 });
 
 const postLogger = router.post('/api/products/',async function (req, res, next) {
-  const accessLogStream = await fs.createWriteStream(path.join(__dirname, 'userLogs.log'), { flags: 'a' }); // creating a log file for get requests
+  const accessLogStream = await fs.createWriteStream(path.join(__dirname, 'userLogs.log'),{flags: "a"}); // creating a log file for post requests
 
-  router.use(morgan(':id :method :url :date',{
-    interval: '7d',
-    stream: accessLogStream  
+  router.use(morgan('combined',{
+    interval: '7d', // logs will rotate every week
+    stream: accessLogStream ,
+    noColors: true  
   }));
  
-  morgan.token('id', (req) => req.id );//This adds an ID to all requests and saves it using the :id token. 
-  req.id = req.params.productId;//reqesting params value
-
   next(); 
 });
 const putLogger = router.put('/api/products/:productId',async function (req, res, next) {
-  const accessLogStream = await fs.createWriteStream(path.join(__dirname, 'userLogs.log'), { flags: 'a' }); // creating a log file for get requests
+  const accessLogStream = await fs.createWriteStream(path.join(__dirname, 'userLogs.log'),{flags: "a"}); // creating a log file for put requests
 
-  router.use(morgan(':id :method :url :date',{
-    interval: '7d',
-    stream: accessLogStream  
+  router.use(morgan('combined',{
+    interval: '7d', // logs will rotate every week
+    stream: accessLogStream  ,
+    noColors: true 
   }));
  
   morgan.token('id', (req) => req.id );//This adds an ID to all requests and saves it using the :id token. 
@@ -59,4 +59,19 @@ const putLogger = router.put('/api/products/:productId',async function (req, res
   next(); 
 });
 
-module.exports =  getLogger,postLogger,getIdLogger,putLogger;
+const deleteLogger = router.delete('/api/products/:productId',async function (req, res, next) {
+  const accessLogStream = await fs.createWriteStream(path.join(__dirname, 'userLogs.log'),{flags: "a"}); // creating a log file for delete requests
+
+  router.use(morgan('combined',{
+    interval: '7d', // logs will rotate every week
+    stream: accessLogStream  ,
+    noColors: true 
+  }));
+ 
+  morgan.token('id', (req) => req.id );//This adds an ID to all requests and saves it using the :id token. 
+  req.id = req.params.productId;//reqesting params value
+
+  next(); 
+});
+
+module.exports =  getLogger,postLogger,getIdLogger,putLogger,deleteLogger;
