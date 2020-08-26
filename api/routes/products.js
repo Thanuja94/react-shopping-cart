@@ -62,7 +62,7 @@ try{
 
 router.post('/products', async(req, res) => {
 
-    const file = req.files.file;
+    const file = req.files.imagePath;
     console.log(req.files.file)
 
     try {
@@ -93,7 +93,7 @@ router.post('/products', async(req, res) => {
             price: req.body.price,
             qty: req.body.qty,
             category: req.body.category,
-            imagePath: file.imagePath,
+            imagePath: file.name,
         });
 
         res.send(await product.save());
