@@ -21,9 +21,9 @@ var app = express();
 
 
 //#region - middlewares
-app.use(logger);
 app.use(cors());
-app.use(fileUpload())
+app.use(logger);
+app.use(fileUpload());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
    

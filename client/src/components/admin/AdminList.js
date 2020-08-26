@@ -8,7 +8,6 @@ class AdminList extends Component {
 
     constructor(props) {
         super(props);
-
     }
 
     state = {
