@@ -57,7 +57,7 @@ router.get('/', async (req, res) => {
     try {
         jwt.verify(token, config.SECRET_KEY);
     } catch (e) {
-        res.status(400).send({msg:"Invalid token"});
+        res.status(400).send({msg:"Invalid token. Please login again"});
     }
 
     try {

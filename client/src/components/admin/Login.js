@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import '../../assets/css/login.css';
 import axios from "axios";
 import {withRouter} from 'react-router-dom';
+import Config from '../../config';
 
 const jwt = require("jsonwebtoken");
 
@@ -13,7 +14,8 @@ class Login extends Component {
             username: null,
             password: null,
             visibility: "hidden",
-            isError: false
+            isError: false,
+            token:JSON.parse(localStorage.getItem("authToken"))
         };
     }
 
@@ -31,20 +33,45 @@ class Login extends Component {
         // console.log(this.state)
     }
 
-    componentWillMount() {
-        const token = JSON.parse(localStorage.getItem("token"))
+    async componentWillMount() {
+        // localStorage.clear()
+        let userId = JSON.parse(localStorage.getItem("userId"))
+        await axios.get(Config.BASE_URL + `/admin/${userId}`, {
+            headers: {
+                "x-jwt-token": this.state.token,
+            },
+        }).then(response => {
+            this.props.history.push('/admin/home');
+
+        })
+            .catch(err => {
+                if (err.response) {
+                    console.log(err.response)
+                } else if (err.request) {
+                    // client never received a response, or request never left
+                } else {
+                    // anything else
+                }
+            })
     }
 
-    async checkAuth(user) {
+    checkAuth(user) {
 
-        await axios.post('http://localhost:3000/api/admin/auth', {
+        axios.post(Config.BASE_URL + '/admin/auth', {
             email: user.username,
             password: user.password,
+        }, {
+            headers: {
+                "x-jwt-token": this.state.token,
+            }
         }).then(response => {
             // do stuff
             this.setState({isError: false})
             let token = response.data.token;
+            let userId = response.data.userId;
+
             localStorage.setItem("authToken", JSON.stringify(token));
+            localStorage.setItem("userId", JSON.stringify(userId));
             this.props.history.push('/admin/home');
             // console.log(response.data.token);
         })

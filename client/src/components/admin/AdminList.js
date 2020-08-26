@@ -14,13 +14,16 @@ class AdminList extends Component {
         allAdmins: [],
         rowNumber: 1,
         isError:false,
-        errorMsg:'Internal Server Error!'
+        errorMsg:'Internal Server Error!',
+        token:JSON.parse(localStorage.getItem("authToken"))
     };
 
     async componentDidMount() {
 
         await axios.get('http://localhost:3000/api/admin', {
-
+            headers: {
+                "x-jwt-token": this.state.token,
+            },
         }).then(response => {
             this.setState({isError: false})
             let data=response.data
@@ -39,7 +42,7 @@ class AdminList extends Component {
             .catch(err => {
                 if (err.response) {
                     let error=err.response
-                    this.setState({isError: true,errorMsg:error.statusText})
+                    this.setState({isError: true,errorMsg:error.data.msg})
                     console.log(err.response)
                 } else if (err.request) {
                     // client never received a response, or request never left

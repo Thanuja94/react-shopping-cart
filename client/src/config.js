@@ -4,4 +4,4 @@ const Config = {
     CURRENCY_API_BASE_URL: 'https://api.exchangeratesapi.io/'
 }
 
-export default { Config }
+export default Config

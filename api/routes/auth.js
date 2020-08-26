@@ -15,9 +15,11 @@ router.post("/", async (req, res) => {
         let pwValid = await bcrypt.compare(req.body.password, admin.password);
         if (!pwValid) return res.status(400).send({msg: "Invalid email /password"});
 
-        let token = jwt.sign({ id: admin._id, email: admin.email }, config.SECRET_KEY);
+        let token = jwt.sign({ id: admin._id, email: admin.email }, config.SECRET_KEY,{
+            // expiresIn:"10000"
+        });
 
-        return res.status(200).send({ token: token });
+        return res.status(200).send({ token: token,userId:admin._id });
     } catch (e) {
         return res.status(500).send(e.message);
     }
