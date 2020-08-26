@@ -3,6 +3,7 @@ import '../../assets/css/login.css';
 import axios from "axios";
 import {withRouter} from 'react-router-dom';
 
+const jwt = require("jsonwebtoken");
 
 
 class Login extends Component {
@@ -30,6 +31,10 @@ class Login extends Component {
         // console.log(this.state)
     }
 
+    componentWillMount() {
+        const token = JSON.parse(localStorage.getItem("token"))
+    }
+
     async checkAuth(user) {
 
         await axios.post('http://localhost:3000/api/admin/auth', {
@@ -38,9 +43,10 @@ class Login extends Component {
         }).then(response => {
             // do stuff
             this.setState({isError: false})
-            // this.toHome('/admin/home')
+            let token = response.data.token;
+            localStorage.setItem("authToken", JSON.stringify(token));
             this.props.history.push('/admin/home');
-            console.log(response);
+            // console.log(response.data.token);
         })
             .catch(err => {
                 if (err.response) {
