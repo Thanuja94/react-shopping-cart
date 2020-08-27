@@ -13,9 +13,9 @@ class AdminList extends Component {
     state = {
         allAdmins: [],
         rowNumber: 1,
-        isError:false,
-        errorMsg:'Internal Server Error!',
-        token:JSON.parse(localStorage.getItem("authToken"))
+        isError: false,
+        errorMsg: 'Internal Server Error!',
+        token: JSON.parse(localStorage.getItem("authToken"))
     };
 
     async componentDidMount() {
@@ -26,7 +26,7 @@ class AdminList extends Component {
             },
         }).then(response => {
             this.setState({isError: false})
-            let data=response.data
+            let data = response.data
 
             let admins = data.map((admin) => {
                 return {
@@ -41,8 +41,8 @@ class AdminList extends Component {
         })
             .catch(err => {
                 if (err.response) {
-                    let error=err.response
-                    this.setState({isError: true,errorMsg:error.data.msg})
+                    let error = err.response
+                    this.setState({isError: true, errorMsg: error.data.msg})
                     console.log(err.response)
                 } else if (err.request) {
                     // client never received a response, or request never left
@@ -86,6 +86,13 @@ class AdminList extends Component {
 
                 <div className="row">
                     <div className="col-lg-12">
+
+                        <button className="btn btn-lg btn-info float-right" onClick={() => this.props.history.push('/admin/newadmin') }>
+                            <i className="fa fa-plus-circle"></i>
+                            Add New
+                        </button>
+                        <br/>
+                        <br/>
                         <div className="card">
                             <div className="card-body">
                                 <h4 className="header-title mb-3">Admin List</h4>

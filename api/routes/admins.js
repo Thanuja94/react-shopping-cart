@@ -15,7 +15,7 @@ router.post("/", async (req, res) => {
         const v = new Validator(req.body, {
             name: 'required',
             email: 'required|email',
-            password: 'required'
+            password: 'required',
         });
 
         const matched = await v.check();

@@ -54,11 +54,11 @@ class Home extends Component {
                                 <h6 className="m-b-20">System Admins</h6>
                                 <h2 className="text-right"><i className="fa fa-user f-left"></i><span>5</span>
                                 </h2>
-                                <p className="m-b-0">New Admins<span className="f-right">2</span></p>
+                                <p className="m-b-0">new Admins<span className="f-right">2</span></p>
                             </div>
                             <div className="card-block">
-                                <a href="#" className="small-box-footer text-white" onClick={() => this.toPage('/admin/adminlist')}>Add New
-                                    <i className="fa fa-plus-circle float-right"></i>
+                                <a href="#" className="small-box-footer text-white" onClick={() => this.toPage('/admin/adminlist')}>View Admins
+                                    <i className="fa fa-eye float-right"></i>
                                 </a>
                             </div>
                         </div>
