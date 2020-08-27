@@ -6,7 +6,8 @@ const { response } = require("express");
 const client = new OAuth2Client("302156694036-4fdehcn3r55dv84nijrtogqbj4movmng.apps.googleusercontent.com")
 
 router.post('/googlelogin' , async (req, res) => {
-    const {tokenId} = await req.body;
+    let tokenId = await req.body;
+    tokenId=tokenId.data.tokenId
 
     client.verifyIdToken({idToken: tokenId , audience: "302156694036-4fdehcn3r55dv84nijrtogqbj4movmng.apps.googleusercontent.com"}).then(response =>{
         const {email_verified, name, email} = response.payload;
