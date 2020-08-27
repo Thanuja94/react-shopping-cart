@@ -1,7 +1,5 @@
 import React, {Component} from "react";
 import '../../assets/css/home.css';
-import axios from "axios";
-import Login from "./Login";
 import {withRouter} from 'react-router';
 
 
@@ -16,6 +14,7 @@ class Home extends Component {
             <div className="container">
                 <br/>
                 <div className="row">
+
                     <div className="col-md-4 col-xl-3">
                         <div className="card bg-c-blue order-card">
                             <div className="card-block">
@@ -39,10 +38,10 @@ class Home extends Component {
                                 <h6 className="m-b-20">Total Products</h6>
                                 <h2 className="text-right"><i className="fa fa-shopping-bag f-left"></i><span>45</span>
                                 </h2>
-                                <p className="m-b-0">New Products<span className="f-right">10</span></p>
+                                <p className="m-b-0">Products<span className="f-right">10</span></p>
                             </div>
                             <div className="card-block">
-                                <a href="#" className="small-box-footer text-white">Add New
+                                <a href="#" className="small-box-footer text-white" onClick={() => this.toPage('/admin/productsportal')} >Add New
                                     <i className="fa fa-plus-circle float-right"></i>
                                 </a>
                             </div>

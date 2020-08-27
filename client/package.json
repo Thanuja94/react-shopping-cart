@@ -11,6 +11,7 @@
         "express-fileupload": "^1.1.10",
         "fa-icons": "^0.2.0",
         "font-awesome": "^4.7.0",
+        "jsonwebtoken": "^8.5.1",
         "react": "^16.13.1",
         "react-confirm-alert": "^2.6.1",
         "react-dom": "^16.13.1",
@@ -18,7 +19,8 @@
         "react-modal": "^3.11.2",
         "react-reveal": "^1.2.2",
         "react-router-dom": "^5.2.0",
-        "react-scripts": "3.4.1"
+        "react-scripts": "3.4.1",
+        "react-toastify": "^6.0.8"
     },
     "scripts": {
         "start": "set PORT=5000 && react-scripts start",

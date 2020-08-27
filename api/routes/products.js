@@ -63,7 +63,6 @@ try{
 router.post('/products', async(req, res) => {
 
     const file = req.files.imagePath;
-    console.log(req.files.file)
 
     try {
 
@@ -77,7 +76,8 @@ router.post('/products', async(req, res) => {
 
         // validate user input
         if (!await validationObj.check()) {
-            return res.status(422).send(validationObj.errors);
+            
+            return res.status(422).send(validationObj);
         }
 
         await file.mv(`../client/public/uploads/${file.name}`, function(err) {
