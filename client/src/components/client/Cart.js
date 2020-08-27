@@ -4,7 +4,7 @@ import Modal from "react-modal";
 import Zoom from "react-reveal/Zoom";
 import GoogleLogin from "react-google-login";
 import axios from "axios";
-import Config from '../../config';
+
 
 
 class Cart extends Component {
@@ -62,9 +62,10 @@ class Cart extends Component {
   };
 
   responseSuccessGoogle = (response) => {
-    console.log(response);
-    axios.post(Config.BASE_URL + '/googlelogin',{
+    console.log(response.tokenId);
+    axios.post('http://localhost:3000/api/userAuth/googlelogin',{
       data:{tokenId: response.tokenId}
+      
     }).then(response => {
       console.log(response);
     })

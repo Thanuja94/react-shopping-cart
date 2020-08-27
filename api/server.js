@@ -15,7 +15,7 @@ var admins = require('./routes/admins');
 var auth = require('./routes/auth');
 var users = require('./routes/users');
 const logger = require('./middlewares/logger');
-
+var userAuth =require('./routes/userAuth');
 
 //#endregion
 
@@ -42,6 +42,7 @@ app.use('/api', products);
 app.use('/api/admin', admins);
 app.use('/api/admin/auth', auth);
 app.use('/api/users', users);
+app.use('/api/userAuth',userAuth);
 
 
 //#endregion
