@@ -3,6 +3,9 @@ import Fade from "react-reveal/Fade";
 import Modal from "react-modal";
 import Zoom from "react-reveal/Zoom";
 import GoogleLogin from "react-google-login";
+import axios from "axios";
+import Config from '../../config';
+
 
 class Cart extends Component {
   constructor(props) {
@@ -60,6 +63,12 @@ class Cart extends Component {
 
   responseSuccessGoogle = (response) => {
     console.log(response);
+    axios.post(Config.BASE_URL + '/googlelogin',{
+      data:{tokenId: response.tokenId}
+    }).then(response => {
+      console.log(response);
+    })
+
   };
 
   responseErrorGoogle = (response) => {
@@ -206,13 +215,13 @@ class Cart extends Component {
                           </button> 
                         </li>
                         <li>
-                        `<GoogleLogin
+                        <GoogleLogin
                             clientId="302156694036-4fdehcn3r55dv84nijrtogqbj4movmng.apps.googleusercontent.com"
                             buttonText="Login"
                             onSuccess={this.responseSuccessGoogle}
                             onFailure={this.responseErrorGoogle}
                             cookiePolicy={'single_host_origin'}
-                          />,`
+                          />,
                         </li>
                       </ul>
                     </form>
