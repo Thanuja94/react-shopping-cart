@@ -218,3 +218,15 @@ GET /api/admin/5f3c339c4840e7060a43a407 Thu, 27 Aug 2020 18:17:20 GMT /api/admin
 GET /api/admin Thu, 27 Aug 2020 18:17:29 GMT /api/admin => 304
 GET /api/admin/5f3c339c4840e7060a43a407 Thu, 27 Aug 2020 18:19:16 GMT /api/admin/5f3c339c4840e7060a43a407 => 304
 GET /api/admin Thu, 27 Aug 2020 18:19:18 GMT /api/admin => 304
+GET /api/products Thu, 27 Aug 2020 21:46:44 GMT /api/products => 304
+POST /api/userAuth/googlelogin Thu, 27 Aug 2020 21:47:01 GMT /api/userAuth/googlelogin => 400
+POST /api/userAuth/googlelogin Thu, 27 Aug 2020 21:50:51 GMT /api/userAuth/googlelogin => 400
+GET /api/products Thu, 27 Aug 2020 21:52:42 GMT /api/products => 304
+POST /api/userAuth/googlelogin Thu, 27 Aug 2020 21:52:52 GMT /api/userAuth/googlelogin => 400
+GET /api/userAuth/googlelogin Thu, 27 Aug 2020 21:54:33 GMT /api/userAuth/googlelogin => 404
+POST /api/userAuth/googlelogin Thu, 27 Aug 2020 21:55:32 GMT /api/userAuth/googlelogin => 400
+GET /api/products Thu, 27 Aug 2020 21:58:24 GMT /api/products => 304
+POST /api/userAuth/googlelogin Thu, 27 Aug 2020 22:04:16 GMT /api/userAuth/googlelogin => 400
+GET /api/products Thu, 27 Aug 2020 22:07:45 GMT /api/products => 304
+POST /api/userAuth/googlelogin Thu, 27 Aug 2020 22:08:09 GMT /api/userAuth/googlelogin => 400
+GET /api/userAuth/googlelogin Thu, 27 Aug 2020 22:08:25 GMT /api/userAuth/googlelogin => 404

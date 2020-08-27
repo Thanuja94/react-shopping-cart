@@ -36,6 +36,39 @@ router.post('/googlelogin' , async (req, res) => {
     client.verifyIdToken({idToken: tokenId , audience: "302156694036-4fdehcn3r55dv84nijrtogqbj4movmng.apps.googleusercontent.com"}).then(response =>{
         const {email_verified, name, email} = response.payload;
         console.log(response.payload);
+        if (email_verified){
+             User.findOne( {email}).exec((err,user) =>{
+                 if(err){
+                    return res.status(400).send("Something went Wrong");
+                 }
+                 else{
+                     if(user){
+                        let token = jwt.sign({ id: user._id , email: user.email }, config.SECRET_KEY);
+
+                        return res.send({token: token});
+                     }
+                     else{
+                        // let salt =  bcrypt.genSalt(10);
+                        // let hashedpw =  bcrypt.hash(email+config.SECRET_KEY,salt);
+                        let hashedpw = email+config.SECRET_KEY;
+
+                         let newuser = new User({name,email,hashedpw});
+
+                        newuser = newuser.save((err,data)=>{
+                             if(err){
+                                return res.status(400).send("Something went Wrong");
+                             }
+                            let token = jwt.sign({ id: data._id , email: data.email }, config.SECRET_KEY);
+
+                            return res.send({token: token});
+                         })
+                     }
+                 }
+             });
+            
+    
+        }
+
     })
 });
 
