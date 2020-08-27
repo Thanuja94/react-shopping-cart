@@ -3,3 +3,7 @@ POST /api/products/12 Thu, 27 Aug 2020 06:17:41 GMT /api/products/12 => 404
 PUT /api/products/12 Thu, 27 Aug 2020 06:17:55 GMT /api/products/12 => 500
 GET /api/products/12 Thu, 27 Aug 2020 06:18:08 GMT /api/products/12 => 500
 GET /api/products/ Thu, 27 Aug 2020 06:18:17 GMT /api/products/ => 200
+GET /api/users/ Thu, 27 Aug 2020 08:22:53 GMT /api/users/ => 404
+POST /api/users/ Thu, 27 Aug 2020 08:32:29 GMT /api/users/ => -
+POST /api/users/ Thu, 27 Aug 2020 08:35:09 GMT /api/users/ => -
+POST /api/users/ Thu, 27 Aug 2020 08:40:13 GMT /api/users/ => 200

@@ -13,7 +13,9 @@ const port = process.env.PORT || config.port;
 var products = require('./routes/products');
 var admins = require('./routes/admins');
 var auth = require('./routes/auth');
+var users = require('./routes/users');
 const logger = require('./middlewares/logger');
+
 
 //#endregion
 
@@ -39,6 +41,7 @@ app.use(bodyParser.json());
 app.use('/api', products);
 app.use('/api/admin', admins);
 app.use('/api/admin/auth', auth);
+app.use('/api/users', users);
 
 
 //#endregion
