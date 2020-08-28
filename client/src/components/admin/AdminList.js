@@ -3,6 +3,7 @@ import {withRouter} from 'react-router';
 import axios from "axios";
 import {confirmAlert} from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css';
+import jwt from "jsonwebtoken";
 
 class AdminList extends Component {
 
@@ -19,6 +20,8 @@ class AdminList extends Component {
     };
 
     async componentDidMount() {
+
+        console.log(jwt.decode(this.state.token))
 
         await axios.get('http://localhost:3000/api/admin', {
             headers: {
