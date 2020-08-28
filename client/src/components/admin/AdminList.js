@@ -14,9 +14,9 @@ class AdminList extends Component {
 
     state = {
         allAdmins: [],
-        rowNumber: 1,
         isError: false,
         errorMsg: 'Internal Server Error!',
+        deleted: false,
         token: JSON.parse(localStorage.getItem("authToken"))
     };
 
@@ -59,14 +59,14 @@ class AdminList extends Component {
 
     }
 
-    confirmDelete = (adminId) => {
+    confirmDelete = (adminId, row) => {
         confirmAlert({
             title: 'Confirm to Delete',
             message: 'Are you sure to do this?',
             buttons: [
                 {
                     label: 'Yes',
-                    onClick: () => this.deleteAdmin(adminId)
+                    onClick: () => this.deleteAdmin(adminId, row)
                 },
                 {
                     label: 'No'
@@ -75,7 +75,15 @@ class AdminList extends Component {
         });
     };
 
-    async deleteAdmin(adminId) {
+    handleDeleteRow(i) {
+        let rows = [...this.state.allAdmins]
+        rows.splice(i, 1)
+        this.setState({
+            allAdmins: rows
+        })
+    }
+
+    async deleteAdmin(adminId, row) {
 
         await axios.delete(
             Config.BASE_URL + `/admin/${adminId}`, {
@@ -83,8 +91,8 @@ class AdminList extends Component {
                     "x-jwt-token": this.state.token,
                 },
             }).then(response => {
-
-            let data = response.data
+            this.setState({deleted:true})
+            this.handleDeleteRow(row)
 
         })
             .catch(err => {
@@ -140,6 +148,15 @@ class AdminList extends Component {
                                         )
                                     }
                                 })()}
+                                {(() => {
+                                    if (this.state.deleted) {
+                                        return (
+                                            <div className="alert alert-success" role="alert">
+                                                Successful.. Admin Deleted Successfully.
+                                            </div>
+                                        )
+                                    }
+                                })()}
                                 <div className="table-responsive project-list">
                                     <table className="table project-table table-centered table-nowrap">
                                         <thead>
@@ -153,16 +170,15 @@ class AdminList extends Component {
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        {this.state.allAdmins.map((admin) => (
+                                        {this.state.allAdmins.map((admin,i) => (
 
-                                            <tr key={this.state.rowNumber}>
-                                                <th scope="row">{this.state.rowNumber}</th>
+                                            <tr key={i}>
+                                                <th scope="row">{i+1}</th>
                                                 <td>{admin.name}</td>
                                                 <td>{admin.email}</td>
                                                 <td></td>
                                                 <td>
                                                     {(() => {
-                                                        this.state.rowNumber++;
                                                         if (admin.isActive == 1) {
                                                             return (
                                                                 <span className="text-success font-12">
@@ -190,12 +206,12 @@ class AdminList extends Component {
                                                            onClick={() => this.props.history.push(`/admin/editadmin/${admin.id}`)}
                                                            className="text-success mr-4" data-toggle="tooltip"
                                                            data-placement="top" title="" data-original-title="Edit">
-                                                            <i className="fa fa-pencil h5 m-0"></i>
+                                                            <i className="fa fa-pencil h5 m-0" title="Edit"></i>
                                                         </a>
-                                                        <a href="#" onClick={() => this.confirmDelete(admin.id)}
+                                                        <a onClick={() => this.confirmDelete(admin.id, i)}
                                                            className="text-danger" data-toggle="tooltip"
                                                            data-placement="top" title="" data-original-title="Close">
-                                                            <i className="fa fa-remove h5 m-0"></i>
+                                                            <i className="fa fa-remove h5 m-0" title="Inactive"></i>
                                                         </a>
                                                     </div>
                                                 </td>
