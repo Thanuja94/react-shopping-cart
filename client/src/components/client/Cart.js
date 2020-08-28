@@ -62,7 +62,7 @@ class Cart extends Component {
   };
 
   responseSuccessGoogle = (response) => {
-    console.log(response.tokenId);
+    console.log(response);
     axios.post('http://localhost:3000/api/userAuth/googlelogin',{
       data:{tokenId: response.tokenId}
       
