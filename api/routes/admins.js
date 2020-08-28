@@ -93,6 +93,17 @@ router.get('/:userId', async (req, res) => {
 
 router.put('/:userId', async (req, res) => {
 
+    const token = req.header("x-jwt-token");
+
+    if (!token) return res.status(401).send("Access denied. No token");
+
+    try {
+        jwt.verify(token, config.SECRET_KEY);
+    } catch (e) {
+        res.status(400).send("Invalid token");
+    }
+
+
     //update first approach
     let admin = await Admin.findOneAndUpdate({_id: req.params.userId}, {
             $set: {
@@ -108,16 +119,27 @@ router.put('/:userId', async (req, res) => {
 });
 
 
-router.delete('/:userId', async (req, res) => {
-    try {
+router.delete('/:adminId', async (req, res) => {
 
-        let admin = await Admin.findOneAndUpdate({_id: req.params.userId}, {
-                $set: {
-                    isActive: 0
-                }
-            }, {new: true, useFindAndModify: false}
-        );
-        res.send(await admin.save());
+    const token = req.header("x-jwt-token");
+
+    if (!token) return res.status(401).send("Access denied. No token");
+
+    try {
+        jwt.verify(token, config.SECRET_KEY);
+    } catch (e) {
+        res.status(400).send("Invalid token");
+    }
+
+
+    try {
+        let admin = await Admin.findOneAndDelete({ _id: req.params.adminId });
+
+        if (!admin) {
+            return res.status(404).send("The given Id does not exist on our server");
+        }
+
+        res.send({msg:"Admin Deleted Successfully"});
 
     } catch (e) {
         res.status(404).send(e);
