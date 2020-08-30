@@ -38,7 +38,7 @@ class Cart extends Component {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(this.getCoodinates);
     } else {
-      alert('browser doesn not support ...')
+      alert('browser does not support ...')
     }
   }
 
