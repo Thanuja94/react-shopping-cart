@@ -72,12 +72,10 @@ class Cart extends Component {
 
   responseSuccessGoogle = (response) => {
     console.log(response);
-    axios.post('http://localhost:3000/api/userAuth/googlelogin',{
-      data:{tokenId: response.tokenId}
-      
-    }).then(response => {
-      console.log(response);
-    })
+   
+    let name = response.name;
+    let email = response.email;
+    this.setState({name: name, email:email});
 
   };
 
@@ -192,7 +190,7 @@ class Cart extends Component {
                   <div className="cart">
                     <form onSubmit={this.createOrder}>
                       <ul className="form-container">
-                        <li>
+                        {/* <li>
                           <label>Email</label>
                           <input
                             name="email"
@@ -218,12 +216,8 @@ class Cart extends Component {
                             required
                             onChange={this.handleInput}
                           ></input>
-                        </li>
-                        <li>
-                          <button className="button primary" type="submit">
-                            Checkout
-                          </button> 
-                        </li>
+                        </li> */}
+                        
                         <li>
                         <GoogleLogin
                             clientId="302156694036-4fdehcn3r55dv84nijrtogqbj4movmng.apps.googleusercontent.com"
@@ -232,6 +226,11 @@ class Cart extends Component {
                             onFailure={this.responseErrorGoogle}
                             cookiePolicy={'single_host_origin'}
                           />
+                        </li>
+                        <li>
+                          <button className="button primary" type="submit">
+                            Checkout
+                          </button> 
                         </li>
                       </ul>
                     </form>
