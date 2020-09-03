@@ -45,4 +45,30 @@ router.post('/orders', async(req, res) => {
 
 });
 
+router.put('/orders/:orderId',async(req,res)=>{
+
+    try{ 
+         //update first approach   
+    let order = await Order.findOneAndUpdate({ _id: req.params.orderID }, {
+        $set: {
+            name: req.body.name,
+            total: req.body.total,
+            address: req.body.address,
+            lat: req.body.lat,
+            long: req.body.long,
+            cartItems:req.body.cartItems,
+            email: req.body.email
+        }
+    }, { new: true, useFindAndModify: false }
+    );
+    if (!order) res.status(400).send('Order is not found!');
+    res.send(await product.save());
+}
+    catch(e)
+    {
+        res.status(500).send(e.message);
+    }
+
+});
+
 module.exports = router;
