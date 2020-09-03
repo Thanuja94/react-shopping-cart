@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const commonFunctions = require('../helpers/commonFunctions');
 const Product = require('../models/product');
-const { productValidationRules, validate } = require('../middlewares/validator');
+const { productValidationRules, validate } = require('../middlewares/productValidator');
 const { Validator } = require('node-input-validator');
 const { findByIdAndDelete } = require('../models/product');
 
