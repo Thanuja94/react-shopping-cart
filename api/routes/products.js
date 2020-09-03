@@ -11,7 +11,7 @@ router.get('/products', async (req, res) => {
 
     try {
         let product = await Product.find({});
-        res.send(product);
+        res.status(200).send(product);
     } catch (e) {
         res.status(500).send(e.message);
     }
