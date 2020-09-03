@@ -44,6 +44,12 @@ class Home extends Component {
                                 <a href="#" className="small-box-footer text-white" onClick={() => this.toPage('/admin/productsportal')} >Add New
                                     <i className="fa fa-plus-circle float-right"></i>
                                 </a>
+                                </div>
+                                <div className="card-block">  
+                                <a href="#" className="small-box-footer text-white" onClick={() => this.toPage('/admin/ProductsListPortal')} >Update
+                                <i className="fa fa-edit float-right"></i>
+                               
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -75,6 +81,7 @@ class Home extends Component {
                             <div className="card-block">
                                 <a href="#" className="small-box-footer text-white">Add New
                                     <i className="fa fa-plus-circle float-right"></i>
+                                   
                                 </a>
                             </div>
                         </div>
