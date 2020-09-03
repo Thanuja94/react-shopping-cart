@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 const commonFunctions = require('../helpers/commonFunctions');
 const Order = require('../models/order');
-const { productValidationRules, validate } = require('../middlewares/validator');
+const { productValidationRules, validate } = require('../middlewares/Ordervalidator');
 const { Validator } = require('node-input-validator');
 
 router.post('/orders', async(req, res) => {
