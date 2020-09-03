@@ -6,7 +6,7 @@ const Order = require('../models/order');
 const { productValidationRules, validate } = require('../middlewares/Ordervalidator');
 const { Validator } = require('node-input-validator');
 
-router.post('/orders', async(req, res) => {
+router.post('/', async(req, res) => {
 
     try {
         console.log('hit...');
@@ -40,7 +40,7 @@ router.post('/orders', async(req, res) => {
 
 });
 
-router.put('/orders/:orderId',async(req,res)=>{
+router.put('/:orderId',async(req,res)=>{
 
     try{ 
          //update first approach   
