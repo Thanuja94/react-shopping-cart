@@ -4,6 +4,7 @@ import Modal from "react-modal";
 import Zoom from "react-reveal/Zoom";
 import GoogleLogin from "react-google-login";
 import axios from "axios";
+import {withRouter} from 'react-router';
 
 
 
@@ -16,7 +17,7 @@ class Cart extends Component {
       email: "",
       showCheckout: false,
       long: '',
-      lat: ''
+      lat: ''     
     };
 
     this.getLocation = this.getLocation.bind(this);
@@ -204,6 +205,12 @@ class Cart extends Component {
                           <button className="button primary" type="submit">
                             Checkout
                           </button> 
+                          <a href=""
+                    onClick={() => this.props.history.push(`/client/userportal/${this.props.currentOrderId}`)}
+                    >
+                    Please Click to Proceed    
+                     
+                    </a>                        
                         </li>
                       </ul>
                     </form>
@@ -221,4 +228,4 @@ class Cart extends Component {
   }
 }
 
-export default Cart
+export default withRouter (Cart) ;

@@ -10,6 +10,7 @@ export default class StorePortal extends Component {
     constructor() {
         super();
         this.state = {
+            currentOrderId : '' , 
             products: data.products,
             cartItems: JSON.parse(localStorage.getItem('cartItems')) ? JSON.parse(localStorage.getItem('cartItems')) : [],
             currency: ''
@@ -68,6 +69,7 @@ export default class StorePortal extends Component {
 
         let res = await axios.post('http://localhost:3000/api/orders', order);
         if (res.status === 200) {
+            this.setState({currentOrderId : res.data._id});
             toast.success('order created succesfully!', {
                 position: "top-right",
                 autoClose: 5000,
@@ -120,7 +122,7 @@ export default class StorePortal extends Component {
                             draggable
                             pauseOnHover
                         />
-                        <Cart cartItems={this.state.cartItems} createOrderPost={this.createOrderPost} removeFromCart={this.removeFromCart}/>
+                        <Cart cartItems={this.state.cartItems} createOrderPost={this.createOrderPost} removeFromCart={this.removeFromCart} currentOrderId = {this.state.currentOrderId}/>
                     </div>
                 </div>
             </div>
