@@ -1,3 +1,5 @@
+import * as jwt from "jsonwebtoken";
+
 const express = require('express');
 const router = express.Router();
 const commonFunctions = require('../helpers/commonFunctions');
@@ -60,13 +62,37 @@ router.put('/orders/:orderId',async(req,res)=>{
     }, { new: true, useFindAndModify: false }
     );
     if (!order) res.status(400).send('Order is not found!');
-    res.send(await product.save());
+    res.send(await order.save());
 }
     catch(e)
     {
         res.status(500).send(e.message);
     }
 
+});
+
+
+
+router.get('/:orderId', async (req, res) => {
+
+    const token = req.header("x-jwt-token");
+
+    if (!token) return res.status(401).send({msg: "Access denied. No token"});
+
+    try {
+        jwt.verify(token, config.SECRET_KEY);
+    } catch (e) {
+        res.status(400).send({msg: "Invalid token"});
+    }
+
+
+    try {
+        let order = await Order.findOne({_id: req.params.orderId}
+        );
+        res.send(order);
+    } catch (e) {
+        res.status(500).send({msg: e.message});
+    }
 });
 
 module.exports = router;

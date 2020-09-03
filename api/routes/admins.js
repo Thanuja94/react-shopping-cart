@@ -7,9 +7,17 @@ const validationFunction = require('../helpers/validationFunctions');
 const {Validator} = require('node-input-validator');
 const config = require('../config/config');
 
-
-
 router.post("/", async (req, res) => {
+
+    const token = req.header("x-jwt-token");
+
+    if (!token) return res.status(401).send({msg:"Access denied. No token"});
+
+    try {
+        jwt.verify(token, config.SECRET_KEY);
+    } catch (e) {
+        res.status(400).send({msg:"Invalid token. Please login again"});
+    }
 
     try {
         const v = new Validator(req.body, {
