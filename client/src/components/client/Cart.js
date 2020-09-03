@@ -14,7 +14,6 @@ class Cart extends Component {
     this.state = {
       name: "",
       email: "",
-      address: "",
       showCheckout: false,
       long: '',
       lat: ''
@@ -56,7 +55,6 @@ class Cart extends Component {
     const order = {
       name: this.state.name,
       email: this.state.email,
-      address: this.state.address,
       cartItems: this.props.cartItems,
       total: this.props.cartItems.reduce((a, c) => a + c.price * c.count, 0),
       long: this.state.long,
@@ -190,33 +188,6 @@ class Cart extends Component {
                   <div className="cart">
                     <form onSubmit={this.createOrder}>
                       <ul className="form-container">
-                        {/* <li>
-                          <label>Email</label>
-                          <input
-                            name="email"
-                            type="email"
-                            required
-                            onChange={this.handleInput}
-                          ></input>
-                        </li>
-                        <li>
-                          <label>Name</label>
-                          <input
-                            name="name"
-                            type="text"
-                            required
-                            onChange={this.handleInput}
-                          ></input>
-                        </li>
-                        <li>
-                          <label>Address</label>
-                          <input
-                            name="address"
-                            type="text"
-                            required
-                            onChange={this.handleInput}
-                          ></input>
-                        </li> */}
                         
                         <li>
                         <GoogleLogin

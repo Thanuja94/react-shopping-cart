@@ -14,7 +14,6 @@ router.post('/orders', async(req, res) => {
 
             name: 'required|minLength:5',
             total: 'required|integer',
-            address: 'required',
             lat: 'required',
             long: 'required'
         });
@@ -28,7 +27,6 @@ router.post('/orders', async(req, res) => {
         let order = new Order({
             name: req.body.name,
             total: req.body.total,
-            address: req.body.address,
             lat: req.body.lat,
             long: req.body.long,
             cartItems:req.body.cartItems,
@@ -51,7 +49,6 @@ router.put('/orders/:orderId',async(req,res)=>{
         $set: {
             name: req.body.name,
             total: req.body.total,
-            address: req.body.address,
             lat: req.body.lat,
             long: req.body.long,
             cartItems:req.body.cartItems,

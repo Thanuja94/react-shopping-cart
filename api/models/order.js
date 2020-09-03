@@ -12,11 +12,7 @@ const OrderSchema = new mongoose.Schema({
         type: Number,
         required: [true, 'cart total should be available'],
     },
-    address: {
-        type: String,
-        required: [true, 'address field cannot be empty'],
-        minlength: 5
-    },
+   
     lat: {
         type: Number,
         required: [true, 'latitude should be available'],
