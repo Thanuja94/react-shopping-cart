@@ -86,12 +86,40 @@ router.get('/:productId', async (req, res) => {
 
 
     try {
-        let product = await Product.findOne({_id: req.params.productId}
-        );
+        let product = await Product.findOne({_id: req.params.productId});
         res.send(product);
     } catch (e) {
         res.status(500).send({msg: e.message});
     }
+});
+
+
+
+router.delete('/:productId', async (req, res) => {
+
+    const token = req.header("x-jwt-token");
+
+    if (!token) return res.status(401).send("Access denied. No token");
+
+    try {
+        jwt.verify(token, config.SECRET_KEY);
+    } catch (e) {
+        res.status(400).send("Invalid token");
+    }
+
+    try {
+        let admin = await Product.findOneAndDelete({ _id: req.params.productId });
+
+        if (!admin) {
+            return res.status(404).send("The given Id does not exist on our server");
+        }
+
+        res.send({msg:"Product Deleted Successfully"});
+
+    } catch (e) {
+        res.status(404).send(e);
+    }
+
 });
 
 

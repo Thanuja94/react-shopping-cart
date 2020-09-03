@@ -41,8 +41,6 @@ class EditAdmin extends Component {
                 progress: undefined,
             });
         }
-
-
         // console.log(this.state)
     }
 

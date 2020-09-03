@@ -97,3 +97,5 @@ GET /api/admin Thu, 03 Sep 2020 17:00:59 GMT /api/admin => 400
 GET /api/admin/5f3c339c4840e7060a43a407 Thu, 03 Sep 2020 17:01:02 GMT /api/admin/5f3c339c4840e7060a43a407 => 400
 GET /api/admin/5f3c339c4840e7060a43a407 Thu, 03 Sep 2020 17:02:04 GMT /api/admin/5f3c339c4840e7060a43a407 => 400
 POST /api/admin/auth Thu, 03 Sep 2020 17:02:12 GMT /api/admin/auth => 200
+POST /api/orders Thu, 03 Sep 2020 17:30:38 GMT /api/orders => 400
+POST /api/admin/auth Thu, 03 Sep 2020 17:30:54 GMT /api/admin/auth => 200
