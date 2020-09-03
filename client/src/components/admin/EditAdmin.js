@@ -15,6 +15,7 @@ class EditAdmin extends Component {
             password_retype: null,
             email: '',
             name: '',
+            is_active: '',
             token: JSON.parse(localStorage.getItem("authToken"))
         };
     }
@@ -29,7 +30,7 @@ class EditAdmin extends Component {
         event.preventDefault();
 
         if (this.state.password == this.state.password_retype)
-            this.addAdmin(this.state)
+            this.updateAdmin(this.state)
         else {
             toast.error('Both Passwords must be same!', {
                 position: "bottom-right",
@@ -58,17 +59,6 @@ class EditAdmin extends Component {
             console.log(data)
 
             this.setState({name: data.name,email:data.email});
-
-            // let admins = data.map((admin) => {
-            //     return {
-            //         id: admin._id,
-            //         name: admin.name,
-            //         email: admin.email,
-            //         isActive: admin.isActive,
-            //     };
-            // });
-            //
-            // this.setState({allAdmins: admins});
         })
             .catch(err => {
                 if (err.response) {
@@ -84,18 +74,21 @@ class EditAdmin extends Component {
 
     }
 
-    addAdmin(user) {
+    updateAdmin(user) {
 
-        axios.post(Config.BASE_URL + '/admin', {
+        const { id } = this.props.match.params
+
+        axios.put(Config.BASE_URL + `/admin/${id}`, {
             email: user.email,
             password: user.password,
-            name: user.name
+            name: user.name,
+            isActive: user.is_active
         }, {
             headers: {
                 "x-jwt-token": this.state.token,
             }
         }).then(response => {
-            toast.success('New Admin added successfully!', {
+            toast.success('Admin Updated successfully!', {
                 position: "bottom-right",
                 autoClose: 5000,
                 hideProgressBar: true,
@@ -109,7 +102,7 @@ class EditAdmin extends Component {
         })
             .catch(err => {
                 if (err.response) {
-                    this.setState({isError: true})
+                    this.setState({isError: true, errorMsg: err.response.data})
                     console.log(err.response)
                 } else if (err.request) {
                     // client never received a response, or request never left
@@ -121,7 +114,17 @@ class EditAdmin extends Component {
 
     render() {
         return (
-            <div className="container">
+            <div className="container-fluid">
+                <br/>
+                {(() => {
+                    if (this.state.isError) {
+                        return (
+                            <div className="alert alert-danger" role="alert">
+                                Error occurred.. {this.state.errorMsg}
+                            </div>
+                        )
+                    }
+                })()}
                 <ToastContainer
                     position="top-right"
                     autoClose={5000}
@@ -147,7 +150,7 @@ class EditAdmin extends Component {
                                         <span className="input-group-text"><i className="fa fa-user"></i></span>
                                     </div>
                                     <input type="text" className="form-control" onChange={this.myChangeHandler}
-                                           name="name" placeholder="Name" value={this.state.name} required/>
+                                           name="name" placeholder="Name" value={this.state.name} />
 
                                 </div>
                                 <div className="input-group form-group">
@@ -155,7 +158,7 @@ class EditAdmin extends Component {
                                         <span className="input-group-text"><i className="fa fa-envelope"></i></span>
                                     </div>
                                     <input type="text" className="form-control" onChange={this.myChangeHandler}
-                                           name="email" placeholder="Email" value={this.state.email} required/>
+                                           name="email" placeholder="Email" value={this.state.email} />
 
                                 </div>
                                 <div className="input-group form-group">
@@ -163,15 +166,27 @@ class EditAdmin extends Component {
                                         <span className="input-group-text"><i className="fa fa-key"></i></span>
                                     </div>
                                     <input type="password" className="form-control" onChange={this.myChangeHandler}
-                                           name="password" placeholder="password" required/>
+                                           name="password" placeholder="password" />
                                 </div>
                                 <div className="input-group form-group">
                                     <div className="input-group-prepend">
                                         <span className="input-group-text"><i className="fa fa-key"></i></span>
                                     </div>
                                     <input type="password" className="form-control" onChange={this.myChangeHandler}
-                                           name="password_retype" placeholder="Re-type Password" required/>
+                                           name="password_retype" placeholder="Re-type Password" />
                                 </div>
+
+                                <div className="input-group form-group">
+                                    <div className="input-group-prepend">
+                                        <span className="input-group-text"><i className="fa fa-check-circle"></i></span>
+                                    </div>
+                                    <select id="is_active" name="is_active" className="form-control" onChange={this.myChangeHandler}>
+                                        <option selected disabled> --Select Status--</option>
+                                        <option value="true">Active</option>
+                                        <option value="false">In-Active</option>
+                                    </select>
+                                </div>
+
                                 <div className="form-group">
                                     <button type="submit" className="btn btn-warning float-right">Update</button>
                                 </div>
