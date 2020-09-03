@@ -35,8 +35,6 @@ router.post('/orders', async(req, res) => {
             email: req.body.email
         });
 
-        console.log(order);
-
         res.send(await order.save());
     } catch (e) {
         console.log(e);
