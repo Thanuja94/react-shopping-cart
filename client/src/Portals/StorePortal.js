@@ -35,8 +35,12 @@ export default class StorePortal extends Component {
 
     }
     removeFromCart = (product) => {
-        console.log('removing from cart')
-    }
+       const cartItems = this.state.cartItems.slice(); 
+       this.setState({
+       cartItems : cartItems.filter((x)=>x.id !== product.id), //get raid of current product that has selected
+       });
+       
+    };
 
     convertCurrency = async (event) => {
 
@@ -100,7 +104,7 @@ export default class StorePortal extends Component {
                         <Product
                             products={this.state.products}
                             addToCart={this.addToCart}
-                            removeFromCart={this.removeFromCart}
+                           
                         ></Product>
                     </div>
                     <div className="sidebar">
@@ -116,7 +120,7 @@ export default class StorePortal extends Component {
                             draggable
                             pauseOnHover
                         />
-                        <Cart cartItems={this.state.cartItems} createOrderPost={this.createOrderPost} />
+                        <Cart cartItems={this.state.cartItems} createOrderPost={this.createOrderPost} removeFromCart={this.removeFromCart}/>
                     </div>
                 </div>
             </div>
