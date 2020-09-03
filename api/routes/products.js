@@ -6,8 +6,9 @@ const {productValidationRules, validate} = require('../middlewares/Productvalida
 const {Validator} = require('node-input-validator');
 const {findByIdAndDelete} = require('../models/product');
 const jwt = require('jsonwebtoken')
+const config = require('../config/config');
 
-router.get('/products', async (req, res) => {
+router.get('/', async (req, res) => {
 
     try {
         let product = await Product.find({});
@@ -17,7 +18,7 @@ router.get('/products', async (req, res) => {
     }
 });
 
-router.post('/products', async (req, res) => {
+router.post('/', async (req, res) => {
 
 
     const token = req.header("x-jwt-token");
@@ -81,7 +82,7 @@ router.get('/:productId', async (req, res) => {
     try {
         jwt.verify(token, config.SECRET_KEY);
     } catch (e) {
-        res.status(400).send({msg: "Invalid token"});
+        res.status(400).send({msg: "Invalid token1"});
     }
 
 

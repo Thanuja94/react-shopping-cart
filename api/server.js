@@ -39,8 +39,8 @@ app.use(bodyParser.json());
 //#endregion
 
 //#region  -- register routes
-app.use('/api', products);
-app.use('/api', orders);
+app.use('/api/products', products);
+app.use('/api/orders', orders);
 app.use('/api/admin', admins);
 app.use('/api/admin/auth', auth);
 app.use('/api/users', users);
