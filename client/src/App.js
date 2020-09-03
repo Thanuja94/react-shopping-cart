@@ -14,6 +14,7 @@ import ProductsPortal from "./components/admin/ProductsPortal";
 import EditAdmin from "./components/admin/EditAdmin";
 import ProductList from "./components/admin/ProductList";
 import EditProduct from "./components/admin/EditProduct";
+import UserPortal from "./Portals/UserPortal";
 
 
 class App extends React.Component {
@@ -35,6 +36,7 @@ class App extends React.Component {
                         <Route path="/admin/editproduct/:id" component={EditProduct} exact/>
                         <Route path="/admin/productsportal" component={ProductsPortal} exact/>
                         <Route path="/admin/productlist" component={ProductList} exact/>
+                        <Route path="/client/userportal/:id" component={UserPortal} exact/>
                     </main>
                     <Footer/>
 

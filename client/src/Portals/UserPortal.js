@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+import {withRouter} from 'react-router';
 
 
 export default class UserPortal extends Component {
@@ -11,4 +11,9 @@ export default class UserPortal extends Component {
         </div>
       );
     }
+
+    async componentDidMount() {
+      
+  }
+
   }

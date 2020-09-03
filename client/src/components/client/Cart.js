@@ -4,6 +4,7 @@ import Modal from "react-modal";
 import Zoom from "react-reveal/Zoom";
 import GoogleLogin from "react-google-login";
 import axios from "axios";
+import {withRouter} from 'react-router';
 
 
 
@@ -16,7 +17,7 @@ class Cart extends Component {
       email: "",
       showCheckout: false,
       long: '',
-      lat: ''
+      lat: ''     
     };
 
     this.getLocation = this.getLocation.bind(this);
@@ -70,10 +71,12 @@ class Cart extends Component {
 
   responseSuccessGoogle = (response) => {
     console.log(response);
-   
-    let name = response.name;
-    let email = response.email;
+    let data = {profileObj: response.profileObj}
+
+    let name = data.profileObj.name;
+    let email = data.profileObj.email;
     this.setState({name: name, email:email});
+    //console.log(data.profileObj.email);
 
   };
 
@@ -202,6 +205,12 @@ class Cart extends Component {
                           <button className="button primary" type="submit">
                             Checkout
                           </button> 
+                          <a href=""
+                    onClick={() => this.props.history.push(`/client/userportal/${this.props.currentOrderId}`)}
+                    >
+                    Please Click to Proceed    
+                     
+                    </a>                        
                         </li>
                       </ul>
                     </form>
@@ -219,4 +228,4 @@ class Cart extends Component {
   }
 }
 
-export default Cart
+export default withRouter (Cart) ;
