@@ -41,13 +41,8 @@ class Home extends Component {
                                 <p className="m-b-0">Products<span className="f-right">10</span></p>
                             </div>
                             <div className="card-block">
-                                <a href="#" className="small-box-footer text-white" onClick={() => this.toPage('/admin/productsportal')} >Add New
-                                    <i className="fa fa-plus-circle float-right"></i>
-                                </a>
-                                </div>
-                                <div className="card-block">  
-                                <a href="#" className="small-box-footer text-white" onClick={() => this.toPage('/admin/ProductsListPortal')} >Update
-                                <i className="fa fa-edit float-right"></i>
+                                <a href="#" className="small-box-footer text-white" onClick={() => this.toPage('/admin/productlist')} >View
+                                <i className="fa fa-eye float-right"></i>
                                
                                 </a>
                             </div>
