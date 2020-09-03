@@ -154,7 +154,7 @@ class Cart extends Component {
                       <div className="right">
                         {item.price} x {item.count}{" "}
                         <button
-                          className="button"
+                          className="btn btn-danger"
                           onClick={() => this.props.removeFromCart(item)}
                         >
                           Remove
@@ -180,7 +180,7 @@ class Cart extends Component {
                     onClick={() => {
                       this.setState({ showCheckout: true });
                     }}
-                    className="button primary"
+                    className="btn btn-primary"
                   >
                     Proceed
                   </button>
