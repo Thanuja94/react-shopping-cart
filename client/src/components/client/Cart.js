@@ -70,10 +70,12 @@ class Cart extends Component {
 
   responseSuccessGoogle = (response) => {
     console.log(response);
-   
-    let name = response.name;
-    let email = response.email;
+    let data = {profileObj: response.profileObj}
+
+    let name = data.profileObj.name;
+    let email = data.profileObj.email;
     this.setState({name: name, email:email});
+    //console.log(data.profileObj.email);
 
   };
 
