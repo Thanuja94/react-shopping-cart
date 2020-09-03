@@ -2,23 +2,20 @@ import React, { Component } from "react";
 import Product from "./../components/client/Product";
 import Cart from "./../components/client/Cart";
 import data from "./../data.json";
-import { LocalStorageService } from "../services/localstorage_service";
 import axios from "axios";
 import CurrencyConverter from "../components/client/CurrencyConverter";
-import Config from '../config';
+import { ToastContainer, toast } from 'react-toastify';
 
 export default class StorePortal extends Component {
     constructor() {
         super();
         this.state = {
             products: data.products,
-            cartItems: JSON.parse(localStorage.getItem('cartItems'))? JSON.parse(localStorage.getItem('cartItems')) : [],
+            cartItems: JSON.parse(localStorage.getItem('cartItems')) ? JSON.parse(localStorage.getItem('cartItems')) : [],
             currency: ''
         };
     }
     addToCart = (product) => {
-
-        console.log(product)
 
         const cartItems = this.state.cartItems.slice();
         let isAdded = false;
@@ -27,7 +24,7 @@ export default class StorePortal extends Component {
                 item.count++;
                 isAdded = true;
             }
-        }); 
+        });
 
         if (!isAdded) {
             cartItems.push({ ...product, count: 1 });
@@ -63,6 +60,33 @@ export default class StorePortal extends Component {
         }
     }
 
+    createOrderPost = async (order) => {
+
+        let res = await axios.post('http://localhost:3000/api/orders', order);
+        if (res.status === 200) {
+            toast.success('order created succesfully!', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+        } else {
+            toast.error('Error creating !', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+        }
+    }
+
+
     render() {
 
         return (
@@ -80,7 +104,19 @@ export default class StorePortal extends Component {
                         ></Product>
                     </div>
                     <div className="sidebar">
-                        <Cart cartItems={this.state.cartItems} />
+
+                        <ToastContainer
+                            position="top-right"
+                            autoClose={5000}
+                            hideProgressBar
+                            newestOnTop={false}
+                            closeOnClick
+                            rtl={false}
+                            pauseOnFocusLoss
+                            draggable
+                            pauseOnHover
+                        />
+                        <Cart cartItems={this.state.cartItems} createOrderPost={this.createOrderPost} />
                     </div>
                 </div>
             </div>
@@ -103,7 +139,7 @@ export default class StorePortal extends Component {
                 qty: product.qty,
                 category: product.category,
                 imagePath: product.imagePath,
-                currencySymbol:'USD'
+                currencySymbol: 'USD'
             };
         });
 

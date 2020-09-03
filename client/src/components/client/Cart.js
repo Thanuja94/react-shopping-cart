@@ -7,6 +7,7 @@ import axios from "axios";
 
 
 
+
 class Cart extends Component {
   constructor(props) {
     super(props);
@@ -44,18 +45,26 @@ class Cart extends Component {
 
 
   handleInput = (e) => {
+    
     this.setState({ [e.target.name]: e.target.value });
   };
-  createOrder = (e) => {
+
+  createOrder = async (e) => {
+
     e.preventDefault();
+
     const order = {
       name: this.state.name,
       email: this.state.email,
       address: this.state.address,
       cartItems: this.props.cartItems,
       total: this.props.cartItems.reduce((a, c) => a + c.price * c.count, 0),
+      long: this.state.long,
+      lat: this.state.lat
     };
-    this.props.createOrder(order);
+
+    this.props.createOrderPost(order);
+
   };
   closeModal = () => {
     this.props.clearOrder();
@@ -76,7 +85,7 @@ class Cart extends Component {
     console.log(response);
   };
   render() {
-    const { cartItems, order } = this.props;
+    const { cartItems } = this.props;
     return (
       <div>
         {cartItems.length === 0 ? (
@@ -87,7 +96,7 @@ class Cart extends Component {
             </div>
           )}
 
-        {order && (
+        {null && (
           <Modal isOpen={true} onRequestClose={this.closeModal}>
             <Zoom>
               <button className="close-modal" onClick={this.closeModal}>
@@ -95,32 +104,32 @@ class Cart extends Component {
               </button>
               <div className="order-details">
                 <h3 className="success-message">Your order has been placed.</h3>
-                <h2>Order {order._id}</h2>
+                <h2>Order </h2>
                 <ul>
                   <li>
                     <div>Name:</div>
-                    <div>{order.name}</div>
+                    <div></div>
                   </li>
                   <li>
                     <div>Email:</div>
-                    <div>{order.email}</div>
+                    <div></div>
                   </li>
                   <li>
                     <div>Address:</div>
-                    <div>{order.address}</div>
+                    <div></div>
                   </li>
                   <li>
                     <div>Date:</div>
-                    <div>{order.createdAt}</div>
+                    <div></div>
                   </li>
                   <li>
                     <div>Total:</div>
-                    <div>{order.total}</div>
+                    <div></div>
                   </li>
                   <li>
                     <div>Cart Items:</div>
                     <div>
-                      {order.cartItems.map((x) => (
+                      {{}.cartItems.map((x) => (
                         <div>
                           {x.count} {" x "} {x.title}
                         </div>
@@ -222,7 +231,7 @@ class Cart extends Component {
                             onSuccess={this.responseSuccessGoogle}
                             onFailure={this.responseErrorGoogle}
                             cookiePolicy={'single_host_origin'}
-                          />,
+                          />
                         </li>
                       </ul>
                     </form>

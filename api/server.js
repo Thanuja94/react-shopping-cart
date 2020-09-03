@@ -11,6 +11,7 @@ const port = process.env.PORT || config.port;
 //#region  --routes
 
 var products = require('./routes/products');
+var orders = require('./routes/orders');
 var admins = require('./routes/admins');
 var auth = require('./routes/auth');
 var users = require('./routes/users');
@@ -39,6 +40,7 @@ app.use(bodyParser.json());
 
 //#region  -- register routes
 app.use('/api', products);
+app.use('/api', orders);
 app.use('/api/admin', admins);
 app.use('/api/admin/auth', auth);
 app.use('/api/users', users);
