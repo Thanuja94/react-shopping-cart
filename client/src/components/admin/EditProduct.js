@@ -70,19 +70,42 @@ class EditProduct extends Component {
 
     }
 
+    onSubmitHandler = (event) => {
+        event.preventDefault();
+        this.handleUpdate(this.state)
+    }
+
     async handleUpdate() {
 
-        let formData = new FormData();
-        formData.append('imagePath', this.state.imagePath);
-        formData.append('productName', this.state.productName);
-        formData.append('qty', this.state.qty);
-        formData.append('category', this.state.category);
-        formData.append('price', this.state.price);
+        const { id } = this.props.match.params
 
-        let res = await axios.put(Config.BASE_URL + `/products/${this.state.id}`, {formData}, {
-            headers: {
-                "x-jwt-token": this.state.token,
-            },
+
+        // let formData = new FormData();
+
+        // let formData = {
+        //     // 'imagePath':this.state.imagePath,
+        //     'productName':this.state.productName,
+        //     'qty':this.state.qty,
+        //     'category':this.state.category,
+        //     'price':this.state.price,
+        // }
+        // formData.set(data)
+
+        // formData.append('imagePath', this.state.imagePath);
+        // formData.append('productName', this.state.productName);
+        // formData.append('qty', this.state.qty);
+        // formData.append('category', this.state.category);
+        // formData.append('price', this.state.price);
+
+        console.log(this.state.imagePath)
+
+        let res = await axios.put(Config.BASE_URL + `/products/${id}`, {
+            'productName':this.state.productName,
+                'qty':this.state.qty,
+                'category':this.state.category,
+                'price':this.state.price,
+        }, {
+
         })
         if (res.status === 200) {
             toast.success('Product updated successfully!', {
@@ -132,7 +155,7 @@ class EditProduct extends Component {
 
                         </div>
                         <div className="card-body">
-                            <form onSubmit={this.onSubmitHandler}>
+                            <div>
                                 <div className="input-group form-group">
                                     <div className="input-group-prepend">
                                         <span className="input-group-text"><i className="fa fa-desktop"></i></span>
@@ -163,7 +186,7 @@ class EditProduct extends Component {
                                     </div>
                                     <select className="form-control" name="category" onChange={this.handleInputChange}
                                             required>
-                                        <option value="">{this.state.category}</option>
+                                        <option value={this.state.category}>{this.state.category}</option>
                                         <option value="Mobile phones">Mobile phones</option>
                                         <option value="Laptops">Laptops</option>
                                         <option value="Accessories">Accessories</option>
@@ -171,16 +194,16 @@ class EditProduct extends Component {
                                         <option value="Other">Other</option>
                                     </select>
                                 </div>
-                                <div className="input-group form-group">
-                                    <div className="input-group-prepend">
+                                {/*<div className="input-group form-group">*/}
+                                {/*    <div className="input-group-prepend">*/}
 
-                                        <img src={'/uploads/' + this.state.imagePath} alt={this.state.productName}
-                                             width="60" height="60"></img>
+                                {/*        <img src={'/uploads/' + this.state.imagePath} alt={this.state.productName}*/}
+                                {/*             width="60" height="60"></img>*/}
 
-                                        <input type="file" className="form-control-file" id="imagePath" name="imagePath"
-                                               onChange={this.handleFileUpload} required/>
-                                    </div>
-                                </div>
+                                {/*        <input type="file" className="form-control-file" id="imagePath" name="imagePath"*/}
+                                {/*               onChange={this.handleFileUpload} required/>*/}
+                                {/*    </div>*/}
+                                {/*</div>*/}
 
                                 <div className="form-group">
                                     <button type="submit" className="btn btn-warning float-right"
@@ -189,7 +212,7 @@ class EditProduct extends Component {
 
 
                                 </div>
-                            </form>
+                            </div>
                         </div>
                     </div>
                 </div>

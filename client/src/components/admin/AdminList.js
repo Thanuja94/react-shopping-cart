@@ -22,10 +22,6 @@ class AdminList extends Component {
 
     async componentDidMount() {
 
-        // console.log(jwt.decode(this.state.token))
-
-        // console.log(this.props.location.state.isNew)
-
         await axios.get('http://localhost:3000/api/admin', {
             headers: {
                 "x-jwt-token": this.state.token,

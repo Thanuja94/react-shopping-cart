@@ -20,16 +20,16 @@ router.get('/', async (req, res) => {
 
 router.post('/', async (req, res) => {
 
-
-    const token = req.header("x-jwt-token");
-
-    if (!token) return res.status(401).send({msg: "Access denied. No token"});
-
-    try {
-        jwt.verify(token, config.SECRET_KEY);
-    } catch (e) {
-        res.status(400).send({msg: "Invalid token. Please login again"});
-    }
+    //
+    // const token = req.header("x-jwt-token");
+    //
+    // if (!token) return res.status(401).send({msg: "Access denied. No token"});
+    //
+    // try {
+    //     jwt.verify(token, config.SECRET_KEY);
+    // } catch (e) {
+    //     res.status(400).send({msg: "Invalid token. Please login again"});
+    // }
 
     const file = req.files.imagePath;
 
@@ -73,6 +73,8 @@ router.post('/', async (req, res) => {
 });
 
 
+
+
 router.get('/:productId', async (req, res) => {
 
     const token = req.header("x-jwt-token");
@@ -95,6 +97,63 @@ router.get('/:productId', async (req, res) => {
 });
 
 
+router.put('/:productId', async (req, res) => {
+
+
+    const token = req.header("x-jwt-token");
+
+    if (!token) return res.status(401).send({msg: "Access denied. No token"});
+
+    try {
+        jwt.verify(token, config.SECRET_KEY);
+    } catch (e) {
+        res.status(400).send({msg: "Invalid token. Please login again"});
+    }
+
+    // const file = req.files.imagePath;
+
+    console.log(req.body)
+    try {
+
+        const validationObj = new Validator(req.body, {
+            productName: 'required|minLength:5',
+            price: 'required|integer',
+            qty: 'required|integer',
+            category: 'required',
+            // files: 'object'
+        });
+
+        // validate user input
+        if (!await validationObj.check()) {
+
+            return res.status(422).send(validationObj);
+        }
+
+        // await file.mv(`../client/public/uploads/${file.name}`, function (err) {
+        //     if (err) {
+        //         console.log(err);
+        //         if (!file) res.status(400).send('Image should be uploaded ...');
+        //         res.status(500).send("Error uploading image...");
+        //     }
+        // });
+
+        let product = await Product.findOneAndUpdate({_id: req.params.productId}, {
+                $set: {
+                    name: req.body.productName,
+                    price: req.body.price,
+                    qty: req.body.qty,
+                    category: req.body.category,
+                    // imagePath: file.name,
+                }
+            }, {new: true, useFindAndModify: false}
+        );
+
+        res.send(await product.save());
+    } catch (e) {
+        res.status(500).send(e.message);
+    }
+
+});
 
 router.delete('/:productId', async (req, res) => {
 

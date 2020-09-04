@@ -12,7 +12,10 @@ class ProductList extends Component {
     }
 
     state = {
-        allproducts: []
+        allproducts: [],
+        deleted: false,
+        isError: false,
+        errorMsg: 'Internal Server Error!',
     };
 
     async componentDidMount() {
@@ -48,6 +51,56 @@ class ProductList extends Component {
 
     }
 
+    confirmDelete = (productId, row) => {
+        confirmAlert({
+            title: 'Confirm to Delete',
+            message: 'Are you sure to do this?',
+            buttons: [
+                {
+                    label: 'Yes',
+                    onClick: () => this.deleteAdmin(productId, row)
+                },
+                {
+                    label: 'No'
+                }
+            ]
+        });
+    };
+
+    handleDeleteRow(i) {
+        let rows = [...this.state.allproducts]
+        rows.splice(i, 1)
+        this.setState({
+            allproducts: rows
+        })
+    }
+
+    async deleteAdmin(productId, row) {
+
+        await axios.delete(
+            Config.BASE_URL + `/products/${productId}`, {
+                headers: {
+                    "x-jwt-token": JSON.parse(localStorage.getItem("authToken"))
+                },
+            }).then(response => {
+            this.setState({deleted:true})
+            this.handleDeleteRow(row)
+
+        })
+            .catch(err => {
+                if (err.response) {
+                    let error = err.response
+                    this.setState({isError: true, errorMsg: error.data.msg})
+                    console.log(err.response)
+                } else if (err.request) {
+                    // client never received a response, or request never left
+                } else {
+                    // anything else
+                }
+            })
+
+    }
+
     render() {
         return (
             <div className="container-fluid">
@@ -74,6 +127,24 @@ class ProductList extends Component {
                         <div className="card">
                             <div className="card-body">
                                 <h4 className="header-title mb-3">Product List</h4>
+                                {(() => {
+                                    if (this.props.location.state != undefined) {
+                                        return (
+                                            <div className="alert alert-success" role="alert">
+                                                Successful.. New product Added Successfully.
+                                            </div>
+                                        )
+                                    }
+                                })()}
+                                {(() => {
+                                    if (this.state.deleted) {
+                                        return (
+                                            <div className="alert alert-success" role="alert">
+                                                Successful.. product Deleted Successfully.
+                                            </div>
+                                        )
+                                    }
+                                })()}
 
                                 <div className="table-responsive project-list">
                                     <table className="table project-table table-centered table-nowrap">
@@ -109,6 +180,11 @@ class ProductList extends Component {
                                                            className="text-success mr-4" data-toggle="tooltip"
                                                            data-placement="top" title="" data-original-title="Edit">
                                                             <i className="fa fa-pencil h5 m-0" title="Edit"></i>
+                                                        </a>
+                                                        <a onClick={() => this.confirmDelete(product.id, i)}
+                                                           className="text-danger" data-toggle="tooltip"
+                                                           data-placement="top" title="" data-original-title="Close">
+                                                            <i className="fa fa-remove h5 m-0" title="Inactive"></i>
                                                         </a>
                                                     </div>
                                                 </td>
