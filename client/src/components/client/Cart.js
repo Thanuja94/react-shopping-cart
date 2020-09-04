@@ -5,7 +5,7 @@ import Zoom from "react-reveal/Zoom";
 import GoogleLogin from "react-google-login";
 import axios from "axios";
 import {withRouter} from 'react-router';
-
+import '../../assets/css/main.css';
 
 
 
@@ -16,6 +16,7 @@ class Cart extends Component {
       name: "",
       email: "",
       showCheckout: false,
+      showConfirm : false,
       long: '',
       lat: ''     
     };
@@ -202,15 +203,13 @@ class Cart extends Component {
                           />
                         </li>
                         <li>
-                          <button className="button primary" type="submit">
+                          <button className="button primary" type="submit" onClick={() => {
+                      this.setState({showConfirm: true });
+                      this.setState({showCheckout: false });
+                    }}>
                             Checkout
                           </button> 
-                          <a href=""
-                    onClick={() => this.props.history.push(`/client/userportal/${this.props.currentOrderId}`)}
-                    >
-                    Please Click to Proceed    
-                     
-                    </a>                        
+                                                 
                         </li>
                       </ul>
                     </form>
@@ -222,6 +221,20 @@ class Cart extends Component {
               )}
             </div>
           )}
+                {this.state.showConfirm && (
+                <Fade right cascade>
+                   <a href=""
+                    onClick={() =>{
+                      this.props.history.push(`/client/userportal/${this.props.currentOrderId}`);
+                      this.setState({showCheckout: false });
+                    } }
+                    >
+                    Click to Confirm    
+                     
+                    </a> 
+
+                </Fade>
+                )}
         </div>
       </div>
     );
