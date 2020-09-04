@@ -204,8 +204,8 @@ class Cart extends Component {
                         </li>
                         <li>
                           <button className="button primary" type="submit" onClick={() => {
-                      this.setState({showConfirm: true });
-                      this.setState({showCheckout: false });
+                      this.setState({showConfirm: true }); 
+                              
                     }}>
                             Checkout
                           </button> 
@@ -226,7 +226,7 @@ class Cart extends Component {
                    <a href=""
                     onClick={() =>{
                       this.props.history.push(`/client/userportal/${this.props.currentOrderId}`);
-                      this.setState({showCheckout: false });
+                      
                     } }
                     >
                     Click to Confirm    
