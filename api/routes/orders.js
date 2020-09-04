@@ -40,7 +40,7 @@ router.post('/', async(req, res) => {
 
 });
 
-router.put('/:orderId',async(req,res)=>{
+router.put('/clientportal/:orderId',async(req,res)=>{
 
     try{ 
          //update first approach   
@@ -63,6 +63,16 @@ router.put('/:orderId',async(req,res)=>{
         res.status(500).send(e.message);
     }
 
+});
+router.get('/clientportal/:orderId',async(req,res)=>{
+    try {
+        let order = await Order.findOne({ _id: req.params.orderId } //Orders that are match with params id
+        );
+        if (!order) res.status(400).send('Order ID not found!');
+        res.send(order);
+    } catch (e) {
+        res.status(500).send(e.message);
+    }
 });
 
 router.get('/:orderId', async (req, res) => {
