@@ -1,6 +1,7 @@
 import React from "react";
+// import React, { Component } from "react";
 // import "./index.css";
-import {BrowserRouter, Route, Link} from "react-router-dom";
+import {BrowserRouter, Route, Link, Switch} from "react-router-dom";
 import AdminPortal from "./Portals/AdminPortal";
 import StorePortal from "./Portals/StorePortal";
 import SignUp from "./components/admin/SignUp";
@@ -15,29 +16,61 @@ import EditAdmin from "./components/admin/EditAdmin";
 import ProductList from "./components/admin/ProductList";
 import EditProduct from "./components/admin/EditProduct";
 import UserPortal from "./Portals/UserPortal";
+import axios from "axios";
+import Config from "./config";
+import PageNotfound from "./components/common/PageNotfound";
+import Auth from "../src/components/admin/Auth"
+
+import ProtectedRoute from "./components/admin/ProtectedRoute"
 
 
 class App extends React.Component {
+// export default class AdminPortal extends Component {
+
+    constructor() {
+        super();
+        this.state = {
+            loggedInStatus: false
+        }
+    }
+
+    // async componentDidMount() {
+    //     await axios.get(Config.BASE_URL + `/admin/isLoggedIn`, {
+    //         headers: {
+    //             "x-jwt-token": JSON.parse(localStorage.getItem("authToken"))
+    //         }
+    //     }).then(response => {
+    //         // alert("came")
+    //         // Auth.logIn(() => {
+    //         //         this.props.history.push("/admin/home")
+    //         //     }
+    //         // )
+    //     })
+    // }
+
     render() {
         return (
             <BrowserRouter>
                 <div className="grid-container">
                     <NavBar/>
-                    <main>
-                        <Route path="/admin" component={AdminPortal} exact/>
+                    <Switch>
+                        {/*<Route path="/admin" component={AdminPortal} exact/>*/}
                         <Route path="/" component={StorePortal} exact/>
                         {/*<Route path="/signup" component={SignUp} exact/>*/}
-                        <Route path="/admin/home" component={Home} exact/>
-                        <Route path="/admin/login" component={Login} exact/>
-                        <Route path="/admin/signup" component={SignUp} exact/>
-                        <Route path="/admin/adminlist" component={AdminList} exact/>
-                        <Route path="/admin/newadmin" component={AddAdmin} exact/>
+                        <ProtectedRoute path="/admin/home" component={Home} exact/>
+                        <ProtectedRoute path="/admin/login" component={Login} exact/>
+                        <ProtectedRoute path="/admin/signup" component={SignUp} exact/>
+                        <ProtectedRoute path="/admin/adminlist" component={AdminList} exact/>
+                        <ProtectedRoute path="/admin/newadmin" component={AddAdmin} exact/>
                         <Route path="/admin/editadmin/:id" component={EditAdmin} exact/>
                         <Route path="/admin/editproduct/:id" component={EditProduct} exact/>
-                        <Route path="/admin/productsportal" component={ProductsPortal} exact/>
-                        <Route path="/admin/productlist" component={ProductList} exact/>
+                        <ProtectedRoute path="/admin/productsportal" component={ProductsPortal} exact/>
+                        <ProtectedRoute path="/admin/productlist" component={ProductList} exact/>
                         <Route path="/client/userportal/:id" component={UserPortal} exact/>
-                    </main>
+                        {/*<ProtectedRoute path="/admin" component={AdminPortal} exact/>*/}
+                        <Route path="/admin" component={AdminPortal} exact/>
+                        <Route component={PageNotfound}/>
+                    </Switch>
                     <Footer/>
 
                 </div>

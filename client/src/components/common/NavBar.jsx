@@ -7,7 +7,7 @@ class NavBar extends Component {
         return (
             <nav className="navbar" style={{background:"#FFC312",color:"white"}}>
                 <Link to="/">Store</Link>
-                <Link to="/admin">Admin</Link>
+                <Link to="/admin/home">Admin</Link>
             </nav>
         );
     }

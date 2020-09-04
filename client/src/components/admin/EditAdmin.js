@@ -4,6 +4,7 @@ import Config from "../../config";
 import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import jwt from "jsonwebtoken";
+import Auth from "./Auth";
 
 // import '../../assets/css/login.css';
 
@@ -12,7 +13,7 @@ class EditAdmin extends Component {
         super(props);
         this.state = {
             password: '',
-            password_retype: null,
+            password_retype: '',
             email: '',
             name: '',
             is_active: '',
@@ -56,8 +57,6 @@ class EditAdmin extends Component {
         }).then(response => {
             let data = response.data
 
-            console.log(data)
-
             this.setState({name: data.name,email:data.email});
         })
             .catch(err => {
@@ -89,7 +88,7 @@ class EditAdmin extends Component {
             }
         }).then(response => {
             toast.success('Admin Updated successfully!', {
-                position: "bottom-right",
+                position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: true,
                 closeOnClick: true,
@@ -97,12 +96,12 @@ class EditAdmin extends Component {
                 draggable: true,
                 progress: undefined,
             });
-            this.props.history.push('/admin/adminlist');
+            // this.props.history.push('/admin/adminlist');
 
         })
             .catch(err => {
                 if (err.response) {
-                    this.setState({isError: true, errorMsg: err.response.data})
+                    this.setState({isError: true, errorMsg: err.response.data.msg})
                     console.log(err.response)
                 } else if (err.request) {
                     // client never received a response, or request never left

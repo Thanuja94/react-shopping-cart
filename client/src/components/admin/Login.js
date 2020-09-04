@@ -3,6 +3,7 @@ import '../../assets/css/login.css';
 import axios from "axios";
 import {withRouter} from 'react-router-dom';
 import Config from '../../config';
+import Auth from "./Auth"
 
 const jwt = require("jsonwebtoken");
 
@@ -15,7 +16,7 @@ class Login extends Component {
             password: null,
             visibility: "hidden",
             isError: false,
-            token:JSON.parse(localStorage.getItem("authToken"))
+            token: JSON.parse(localStorage.getItem("authToken"))
         };
     }
 
@@ -41,18 +42,11 @@ class Login extends Component {
                 "x-jwt-token": this.state.token,
             },
         }).then(response => {
-            this.props.history.push('/admin/home');
-
-        })
-            .catch(err => {
-                if (err.response) {
-                    console.log(err.response)
-                } else if (err.request) {
-                    // client never received a response, or request never left
-                } else {
-                    // anything else
+            Auth.logIn(() => {
+                    this.props.history.push("/admin/home")
                 }
-            })
+            )
+        })
     }
 
     checkAuth(user) {
@@ -70,6 +64,11 @@ class Login extends Component {
             let token = response.data.token;
             let userId = response.data.userId;
 
+            Auth.logIn(() => {
+                    this.props.history.push("/admin/home")
+                }
+            )
+
             localStorage.setItem("authToken", JSON.stringify(token));
             localStorage.setItem("userId", JSON.stringify(userId));
             this.props.history.push('/admin/home');
@@ -78,7 +77,7 @@ class Login extends Component {
             .catch(err => {
                 if (err.response) {
                     this.setState({isError: true})
-                    console.log(err.response)
+                    // console.log(err.response)
                 } else if (err.request) {
                     // client never received a response, or request never left
                 } else {
@@ -89,7 +88,7 @@ class Login extends Component {
 
     render() {
         return (
-            <div className="login-form" style={{width: "100%", height: "100%"}}>
+            <div className="login-form">
                 <div className="container">
                     <br/>
                     <br/>

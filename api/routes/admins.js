@@ -7,6 +7,31 @@ const validationFunction = require('../helpers/validationFunctions');
 const {Validator} = require('node-input-validator');
 const config = require('../config/config');
 
+
+
+router.get('/isLoggedIn', async (req, res) => {
+
+    // res.status(400).send({data:false});
+
+    const token = req.header("x-jwt-token");
+
+    if (!token) return res.status(400).send({isLoggedIn: false});
+
+    try {
+        jwt.verify(token, config.SECRET_KEY);
+        // let decoded = jwt.decode(token, config.SECRET_KEY);
+        console.log(token)
+        return res.status(200).send({isLoggedIn: true});
+
+    } catch (e) {
+        console.log(e.message)
+        console.log(token)
+        if (!token) return res.status(400).send({isLoggedIn: false});
+    }
+
+
+});
+
 router.post("/", async (req, res) => {
 
     const token = req.header("x-jwt-token");
@@ -122,7 +147,7 @@ router.put('/:userId', async (req, res) => {
         const matched = await v.check();
 
         if (!matched) {
-            return res.status(422).send("Please fill all required fields correctly");
+            return res.status(422).send({msg:"Please fill all fields correctly"});
         }
 
         let salt = await bcrypt.genSalt(10);
