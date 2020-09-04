@@ -71,6 +71,16 @@ async componentDidMount() {
         })
 }
 
+increase(itemId){
+   let item =  this.state.cartItems.findIndex(item => item.id === itemId);
+   let c = item.count + 1;
+   return (c);
+}
+decrease(itemId){
+    let item =  this.state.cartItems.findIndex(item => item.id === itemId);
+    let c = item.count - 1;
+   return (c);
+}
 
   render() {
       return (
@@ -103,7 +113,8 @@ async componentDidMount() {
                             <div><td>{ item.count} </td> </div>
                             <td>
                             <div>
-                                 
+                                 <button onClick = {this.increase(item.id)}>- </button>
+                                 <button onClick = {this.decrease(item.id)}>+ </button>
                             </div>
                                
                             </td>
