@@ -40,7 +40,7 @@ class ProductList extends Component {
         }).catch(err => {
             if (err.response) {
                 let error = err.response
-                this.setState({isError: true, errorMsg: error.data.msg})
+                this.setState({isError: true, errorMsg: error.data.errors})
                 console.log(err.response)
             } else if (err.request) {
                 // client never received a response, or request never left

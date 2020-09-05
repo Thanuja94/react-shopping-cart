@@ -16,7 +16,8 @@ router.post("/", async (req, res) => {
         if (!pwValid) return res.status(400).send({msg: "Invalid email /password"});
 
         let token = jwt.sign({ id: admin._id, email: admin.email }, config.SECRET_KEY,{
-            expiresIn:"1200000"
+            expiresIn:"7200000"
+            // expiresIn:"10000"
         });
 
         return res.status(200).send({ token: token,userId:admin._id });

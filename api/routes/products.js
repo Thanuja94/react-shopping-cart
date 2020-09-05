@@ -126,7 +126,7 @@ router.put('/:productId', async (req, res) => {
         // validate user input
         if (!await validationObj.check()) {
 
-            return res.status(422).send(validationObj);
+            return res.status(422).send({msg:"Please fill all required fields correctly"});
         }
 
         // await file.mv(`../client/public/uploads/${file.name}`, function (err) {

@@ -34,20 +34,20 @@ class Login extends Component {
         // console.log(this.state)
     }
 
-    async componentWillMount() {
-        // localStorage.clear()
-        let userId = JSON.parse(localStorage.getItem("userId"))
-        await axios.get(Config.BASE_URL + `/admin/${userId}`, {
-            headers: {
-                "x-jwt-token": this.state.token,
-            },
-        }).then(response => {
-            Auth.logIn(() => {
-                    this.props.history.push("/admin/home")
-                }
-            )
-        })
-    }
+    // async componentWillMount() {
+    //     // localStorage.clear()
+    //     let userId = JSON.parse(localStorage.getItem("userId"))
+    //     await axios.get(Config.BASE_URL + `/admin/${userId}`, {
+    //         headers: {
+    //             "x-jwt-token": this.state.token,
+    //         },
+    //     }).then(response => {
+    //         Auth.logIn(() => {
+    //                 this.props.history.push("/admin/home")
+    //             }
+    //         )
+    //     })
+    // }
 
     checkAuth(user) {
 
