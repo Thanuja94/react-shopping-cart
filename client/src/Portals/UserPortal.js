@@ -5,7 +5,7 @@ import {ToastContainer, toast} from 'react-toastify';
 
 
 
-export default class UserPortal extends Component {
+ class UserPortal extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -21,10 +21,9 @@ onSubmitHandler()
   const { id } = this.props.match.params
 
   axios.put(`http://localhost:3000/api/orders/clientportal/${id}`, {
-      email: this.state.name,
-      cartItems : this.state.cartItems 
-  }, {
-      
+     
+      cartItems : this.state.cartItems
+
   }).then(response => {
       toast.success('Order Confirmed!', {
           position: "bottom-right",
@@ -71,23 +70,45 @@ async componentDidMount() {
         })
 }
 
-increase(itemId){
-   let item =  this.state.cartItems.findIndex(item => item.id === itemId);
-   let c = item.count + 1;
-   return (c);
+increase = (itemId) => {
+    let item = this.state.cartItems.find(item => item.id === itemId);
+    let index = this.state.cartItems.findIndex(item => item.id === itemId);
+
+    let cartItems = [...this.state.cartItems];    
+    item.count += 1;
+    cartItems[index] = item;
+    
+    this.setState({ cartItems });   
+
+    console.log(cartItems[index]); 
+    
+
 }
 decrease(itemId){
-    let item =  this.state.cartItems.findIndex(item => item.id === itemId);
-    let c = item.count - 1;
-   return (c);
+    let item = this.state.cartItems.find(item => item.id === itemId);
+    let index = this.state.cartItems.findIndex(item => item.id === itemId);
+
+    let cartItems = [...this.state.cartItems];    
+    item.count -= 1;
+    cartItems[index] = item;
+
+    this.setState({ cartItems });    
+
+    console.log(cartItems[index]); 
+    
+}
+calTotal(){
+    this.setState({total:this.state.cartItems.reduce((a, c) => a + c.price * c.count, 0)})
 }
 
   render() {
-      return (
-       
+      return (  
+        <div className="container-fluid">         
         <div className="card">
         <div className="card-body">
-            <h4 className="header-title mb-3">Order List</h4>
+           
+           <div>  <span className="label info">Order List</span></div>
+            
            
            <div className="table-responsive project-list">
                 <table className="table project-table table-centered table-nowrap">
@@ -113,23 +134,29 @@ decrease(itemId){
                             <div><td>{ item.count} </td> </div>
                             <td>
                             <div>
-                                 <button onClick = {this.increase(item.id)}>- </button>
-                                 <button onClick = {this.decrease(item.id)}>+ </button>
+                                 <button onClick = {()=>this.increase(item.id)}>+ </button>
+                                 <button onClick = {()=>this.decrease(item.id)}>- </button>
+                                 
                             </div>
                                
                             </td>
                         </tr>
                     ))}
-                    </tbody>
-                    <div></div>
+                    </tbody>                   
                 </table> 
               </div>
-
+                <div>               
+                <span className="float-right">Click to calculate the Total</span>               
+               </div>
+              <div>
+              <button className="btn btn-warning float-right" onClick = {()=>this.calTotal()}>{this.state.total}</button>              
+              </div> 
+              <div>
+              <button className="btn btn-warning float-right" onClick = {()=>this.onSubmitHandler()}>Confirm</button>  
+               </div>   
         </div>
     </div>
-      );
+    </div>  );
     }
-
-
-
   }
+  export default withRouter (UserPortal) ;
