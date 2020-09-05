@@ -9,7 +9,7 @@ const { Validator } = require('node-input-validator');
 router.post('/', async(req, res) => {
 
     try {
-        console.log('hit...');
+
         const validationObj = new Validator(req.body, {
             name: 'required|minLength:5',
             total: 'required|integer',
