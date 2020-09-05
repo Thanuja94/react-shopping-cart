@@ -77,8 +77,8 @@ class Cart extends Component {
     let name = data.profileObj.name;
     let email = data.profileObj.email;
     this.setState({name: name, email:email});
-    //console.log(data.profileObj.email);
-
+   
+    document.getElementById("btn-checkout").disabled = false;
   };
 
   responseErrorGoogle = (response) => {
@@ -203,7 +203,7 @@ class Cart extends Component {
                           />
                         </li>
                         <li>
-                          <button className="button primary" type="submit" onClick={() => {
+                          <button className="button primary" id = "btn-checkout" disabled = "true" type="submit" onClick={() => {
                       this.setState({showConfirm: true }); 
                               
                     }}>
