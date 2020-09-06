@@ -52,10 +52,10 @@ class App extends React.Component {
                         <ProtectedRoute path="/admin/editproduct/:id" component={EditProduct} exact/>
                         <ProtectedRoute path="/admin/productsportal" component={ProductsPortal} exact/>
                         <ProtectedRoute path="/admin/productlist" component={ProductList} exact/>
-                        <ProtectedRoute path="/client/userportal/:id" component={UserPortal} exact/>
                         {/*<ProtectedRoute path="/admin" component={AdminPortal} exact/>*/}
                         <Route path="/admin" component={AdminPortal} exact/>
                         <Route component={PageNotfound}/>
+                        <Route path="/client/userportal/:id" component={UserPortal} exact/>
                     </Switch>
                     <Footer/>
 
