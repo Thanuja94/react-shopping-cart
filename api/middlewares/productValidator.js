@@ -10,7 +10,6 @@ const productValidationRules = () => {
     body('file') //checking if imagePath is exist
   ]
 }
-
 const validate = (req, res, next) => {
   const errors = validationResult(req);
   if (errors.isEmpty()) {
