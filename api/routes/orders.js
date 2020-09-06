@@ -5,6 +5,7 @@ const commonFunctions = require('../helpers/commonFunctions');
 const Order = require('../models/order');
 const { productValidationRules, validate } = require('../middlewares/Ordervalidator');
 const { Validator } = require('node-input-validator');
+const config = require('../config/config');
 
 router.post('/', async(req, res) => {
 
@@ -75,7 +76,7 @@ router.get('/clientportal/:orderId',async(req,res)=>{
     }
 });
 
-router.get('/:orderId', async (req, res) => {
+router.get('/all-orders', async (req, res) => {
 
     const token = req.header("x-jwt-token");
 
@@ -84,13 +85,13 @@ router.get('/:orderId', async (req, res) => {
     try {
         jwt.verify(token, config.SECRET_KEY);
     } catch (e) {
-        res.status(400).send({msg: "Invalid token"});
+        res.status(400).send({msg: e.message});
     }
 
+
     try {
-        let order = await Order.findOne({_id: req.params.orderId}
-        );
-        res.send(order);
+        let orders = await Order.find({});
+        res.send(orders);
     } catch (e) {
         res.status(500).send({msg: e.message});
     }
