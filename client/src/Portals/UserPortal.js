@@ -15,28 +15,30 @@ import {ToastContainer, toast} from 'react-toastify';
     };
 }
 
-onSubmitHandler()
+onSubmitHandler = async() =>
 {
-
   const { id } = this.props.match.params
 
-  axios.put(`http://localhost:3000/api/orders/clientportal/${id}`, {
+   await axios.put(`http://localhost:3000/api/orders/clientportal/${id}`, {
      
-      cartItems : this.state.cartItems
+      cartItems : this.state.cartItems,
+      total : this.state.total,
+      name : this.state.name
 
-  }).then(response => {
-      toast.success('Order Confirmed!', {
-          position: "bottom-right",
-          autoClose: 5000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-      });
-     
-
-  })
+        }).then(
+            response => {
+                    toast.success('Order updated successfully!', {
+                        position: "top-right",
+                        autoClose: 5000,
+                        hideProgressBar: true,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                    });
+                    // this.props.history.push('/admin/adminlist');
+        
+                })
       .catch(err => {
           if (err.response) {
               this.setState({isError: true, errorMsg: err.response.data})
@@ -102,8 +104,20 @@ calTotal(){
 }
 
   render() {
-      return (  
-        <div className="container-fluid">         
+      return ( 
+           
+        <div className="container-fluid">  
+                  <ToastContainer
+                    position="top-right"
+                    autoClose={5000}
+                    hideProgressBar
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                />       
         <div className="card">
         <div className="card-body">
            
