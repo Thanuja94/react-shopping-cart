@@ -34,20 +34,6 @@ class App extends React.Component {
         }
     }
 
-    // async componentDidMount() {
-    //     await axios.get(Config.BASE_URL + `/admin/isLoggedIn`, {
-    //         headers: {
-    //             "x-jwt-token": JSON.parse(localStorage.getItem("authToken"))
-    //         }
-    //     }).then(response => {
-    //         // alert("came")
-    //         // Auth.logIn(() => {
-    //         //         this.props.history.push("/admin/home")
-    //         //     }
-    //         // )
-    //     })
-    // }
-
     render() {
         return (
             <BrowserRouter>
@@ -62,11 +48,11 @@ class App extends React.Component {
                         <ProtectedRoute path="/admin/signup" component={SignUp} exact/>
                         <ProtectedRoute path="/admin/adminlist" component={AdminList} exact/>
                         <ProtectedRoute path="/admin/newadmin" component={AddAdmin} exact/>
-                        <Route path="/admin/editadmin/:id" component={EditAdmin} exact/>
-                        <Route path="/admin/editproduct/:id" component={EditProduct} exact/>
+                        <ProtectedRoute path="/admin/editadmin/:id" component={EditAdmin} exact/>
+                        <ProtectedRoute path="/admin/editproduct/:id" component={EditProduct} exact/>
                         <ProtectedRoute path="/admin/productsportal" component={ProductsPortal} exact/>
                         <ProtectedRoute path="/admin/productlist" component={ProductList} exact/>
-                        <Route path="/client/userportal/:id" component={UserPortal} exact/>
+                        <ProtectedRoute path="/client/userportal/:id" component={UserPortal} exact/>
                         {/*<ProtectedRoute path="/admin" component={AdminPortal} exact/>*/}
                         <Route path="/admin" component={AdminPortal} exact/>
                         <Route component={PageNotfound}/>

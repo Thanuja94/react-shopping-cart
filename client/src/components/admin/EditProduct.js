@@ -77,7 +77,7 @@ class EditProduct extends Component {
 
     async handleUpdate() {
 
-        const { id } = this.props.match.params
+        const {id} = this.props.match.params
 
 
         // let formData = new FormData();
@@ -99,16 +99,17 @@ class EditProduct extends Component {
 
         console.log(this.state.imagePath)
 
-        let res = await axios.put(Config.BASE_URL + `/products/${id}`, {
-            'productName':this.state.productName,
-                'qty':this.state.qty,
-                'category':this.state.category,
-                'price':this.state.price,
+        await axios.put(Config.BASE_URL + `/products/${id}`, {
+            'productName': this.state.productName,
+            'qty': this.state.qty,
+            'category': this.state.category,
+            'price': this.state.price,
         }, {
-
-        })
-        if (res.status === 200) {
-            toast.success('Product updated successfully!', {
+            headers: {
+                "x-jwt-token": this.state.token,
+            }
+        }).then(response => {
+            toast.success('Product Updated successfully!', {
                 position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: true,
@@ -118,23 +119,37 @@ class EditProduct extends Component {
                 progress: undefined,
             });
             // this.props.history.push('/admin/adminlist');
-        } else {
-            toast.error('Error updating product !', {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-            });
-        }
+
+        })
+            .catch(err => {
+                if (err.response) {
+                    this.setState({isError: true, errorMsg: err.response.data.msg})
+                    console.log(err.response)
+                } else if (err.request) {
+                    // client never received a response, or request never left
+                } else {
+                    // anything else
+                }
+            })
 
     }
 
     render() {
         return (
             <div className="container">
+                {(() => {
+                    if (this.state.isError) {
+                        return (
+                            <div>
+                                <br/>
+                                <div className="alert alert-danger" role="alert">
+                                    Error occurred.. {this.state.errorMsg}
+                                </div>
+                            </div>
+
+                        )
+                    }
+                })()}
                 <ToastContainer
                     position="top-right"
                     autoClose={5000}
@@ -162,21 +177,21 @@ class EditProduct extends Component {
                                     </div>
                                     <input type="text" className="form-control" onChange={this.handleInputChange}
                                            name="productName" placeholder="Product Name" value={this.state.productName}
-                                           required/>
+                                    />
                                 </div>
                                 <div className="input-group form-group">
                                     <div className="input-group-prepend">
                                         <span className="input-group-text"><i className="fa fa-money"></i></span>
                                     </div>
                                     <input type="text" className="form-control" onChange={this.handleInputChange}
-                                           name="price" placeholder="Price" value={this.state.price} required/>
+                                           name="price" placeholder="Price" value={this.state.price}/>
                                 </div>
                                 <div className="input-group form-group">
                                     <div className="input-group-prepend">
                                         <span className="input-group-text"><i className="fa fa-question"></i></span>
                                     </div>
                                     <input type="text" className="form-control" onChange={this.handleInputChange}
-                                           name="qty" placeholder="Quentity" value={this.state.qty} required/>
+                                           name="qty" placeholder="Quentity" value={this.state.qty}/>
 
                                 </div>
 
@@ -185,7 +200,7 @@ class EditProduct extends Component {
                                         <span className="input-group-text"><i className="fa fa-laptop"></i></span>
                                     </div>
                                     <select className="form-control" name="category" onChange={this.handleInputChange}
-                                            required>
+                                    >
                                         <option value={this.state.category}>{this.state.category}</option>
                                         <option value="Mobile phones">Mobile phones</option>
                                         <option value="Laptops">Laptops</option>
