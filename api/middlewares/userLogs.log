@@ -2528,3 +2528,7 @@ PUT /api/orders/clientportal/5f526dba3d48513e481a8bf8 Sun, 06 Sep 2020 06:45:13 
 PUT /api/orders/clientportal/5f526dba3d48513e481a8bf8 Sun, 06 Sep 2020 06:46:05 GMT /api/orders/clientportal/5f526dba3d48513e481a8bf8 => 200
 PUT /api/orders/clientportal/5f526dba3d48513e481a8bf8 Sun, 06 Sep 2020 06:46:20 GMT /api/orders/clientportal/5f526dba3d48513e481a8bf8 => 500
 PUT /api/orders/clientportal/5f526dba3d48513e481a8bf8 Sun, 06 Sep 2020 06:46:35 GMT /api/orders/clientportal/5f526dba3d48513e481a8bf8 => 200
+GET /api/products Sun, 06 Sep 2020 07:34:33 GMT /api/products => 200
+GET /api/products Sun, 06 Sep 2020 07:36:12 GMT /api/products => 304
+GET /api/products Sun, 06 Sep 2020 07:51:52 GMT /api/products => 304
+GET /api/orders/clientportal/hgj Sun, 06 Sep 2020 07:52:14 GMT /api/orders/clientportal/hgj => 500
