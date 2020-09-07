@@ -63,14 +63,15 @@ router.put('/clientportal/:orderId',orderValidationRules(), validate ,async(req,
 
 router.get('/clientportal/:orderId',async(req,res)=>{
     try {
-        let order = await Order.findOne({_id: req.params.orderId}
-        );
+        let order = await Order.findOne({_id: req.params.orderId});        
         res.send(order);
+        if(!order){
+            res.send("Order ID is not found!");
+        }
     } catch (e) {
         res.status(500).send({msg: e.message});
     }
-   
-   });
+});
 
 
 router.get('/all-orders', async (req, res) => {
