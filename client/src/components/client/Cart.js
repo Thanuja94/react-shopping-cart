@@ -203,39 +203,29 @@ class Cart extends Component {
                           />
                         </li>
                         <li>
-                          <button className="button primary" id = "btn-checkout" disabled = "true" type="submit" onClick={() => {
-                      this.setState({showConfirm: true }); 
-                              
-                    }}>
+                          <button className="button primary" id = "btn-checkout" disabled = "true" type="submit">
                             Checkout
                           </button> 
                                                  
                         </li>
+                    <li>
+                      <a href=""
+                        onClick={() =>{
+                        this.props.history.push(`/client/userportal/${this.props.currentOrderId}`);} }>
+                        Click to Confirm    
+                      </a> 
+                    </li>
+
                       </ul>
                     </form>
                   </div>
                   <img src={"https://maps.googleapis.com/maps/api/staticmap?center=" + this.state.lat + "," + this.state.long + "&zoom=14&size=400x300&sensor=false&markers=color:red%7C" + this.state.lat + "," + this.state.long + "&key=AIzaSyD5LkQwfaKd8SpU10fhMYwNR0F676A_t1g"}  id="map_image"  class="cart"/>
-
-
+               
                 </Fade>
               )}
             </div>
-          )}
-                {this.state.showConfirm && (
-                <Fade right cascade>
-                   <a href=""
-                    onClick={() =>{
-                      this.props.history.push(`/client/userportal/${this.props.currentOrderId}`);
-                      
-                    } }
-                    >
-                    Click to Confirm    
-                     
-                    </a> 
-
-                </Fade>
-                )}
-        </div>
+          )}          
+         </div>
       </div>
     );
   }
