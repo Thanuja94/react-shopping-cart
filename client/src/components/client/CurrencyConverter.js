@@ -15,8 +15,8 @@ class CurrencyConverter extends Component {
             value={this.props.currency}
             onChange={ this.props.convertCurrency }
           >
-            <option value="GBP">GBP</option>
             <option value="USD">USD</option>
+            <option value="GBP">GBP</option>
             <option value="AUD">AUD</option>
           </select>
         </div>

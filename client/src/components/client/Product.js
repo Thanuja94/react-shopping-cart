@@ -66,21 +66,13 @@ class Product extends Component {
                                 x
                             </button>
                             <div className="product-details">
-                                <img src={product.imagePath} alt={product.name}></img>
+                                <img src={'/uploads/' + product.imagePath} alt={product.name}></img>
                                 <div className="product-details-description">
                                     <p>
                                         <strong>{product.name}</strong>
                                     </p>
                                     <p>{product.description}</p>
-                                    <p>
-                                        Avaiable Sizes:{" "}
-                                        {product.availableSizes.map((x) => (
-                                            <span>
-                        {" "}
-                                                <button className="button">{x}</button>
-                      </span>
-                                        ))}
-                                    </p>
+                                    
                                     <div className="product-price">
                                         <div>{product.price} </div>
                                         <button

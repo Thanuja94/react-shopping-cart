@@ -10,7 +10,7 @@ const config = require('../config/config');
 router.post('/',async(req, res) => {
 
     try {
-        console.log('hit...');
+
         const validationObj = new Validator(req.body, {
             name: 'required|minLength:5',
             total: 'required|integer',
