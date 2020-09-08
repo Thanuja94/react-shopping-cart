@@ -2858,3 +2858,37 @@ GET /api/admin/5f401b9915cbc12eb03ce8bd Tue, 08 Sep 2020 18:14:38 GMT /api/admin
 
 >>>>>>> b41f24198d209f238c9b923334131ba1a6110898
 GET /api/admin/isLoggedIn Tue, 08 Sep 2020 18:46:12 GMT /api/admin/isLoggedIn => 304
+GET /api/products Tue, 08 Sep 2020 19:15:32 GMT /api/products => 200
+GET /api/products Tue, 08 Sep 2020 19:15:41 GMT /api/products => 200
+GET /api/products Tue, 08 Sep 2020 19:17:10 GMT /api/products => 304
+POST /api/orders Tue, 08 Sep 2020 19:17:33 GMT /api/orders => 200
+GET /api/orders/clientportal/5f57d8ccf3234227acca800b Tue, 08 Sep 2020 19:17:34 GMT /api/orders/clientportal/5f57d8ccf3234227acca800b => -
+GET /api/orders/clientportal/5f57d8ccf3234227acca800b Tue, 08 Sep 2020 19:17:35 GMT /api/orders/clientportal/5f57d8ccf3234227acca800b => 200
+PUT /api/orders/clientportal/5f57d8ccf3234227acca800b Tue, 08 Sep 2020 19:17:42 GMT /api/orders/clientportal/5f57d8ccf3234227acca800b => 200
+GET /api/orders/clientportal/5f57d8ccf3234227acca800b Tue, 08 Sep 2020 19:18:58 GMT /api/orders/clientportal/5f57d8ccf3234227acca800b => 200
+GET /api/orders/clientportal/5f57d8ccf3234227acca800b Tue, 08 Sep 2020 19:19:01 GMT /api/orders/clientportal/5f57d8ccf3234227acca800b => 304
+GET /api/orders/clientportal/5f57d8ccf3234227acca800b Tue, 08 Sep 2020 19:19:10 GMT /api/orders/clientportal/5f57d8ccf3234227acca800b => 304
+GET /api/orders/clientportal/5f57d8ccf3234227acca800b Tue, 08 Sep 2020 19:20:16 GMT /api/orders/clientportal/5f57d8ccf3234227acca800b => -
+GET /api/orders/clientportal/5f57d8ccf3234227acca800b Tue, 08 Sep 2020 19:20:17 GMT /api/orders/clientportal/5f57d8ccf3234227acca800b => 304
+GET /api/orders/clientportal/5f57d8ccf3234227acca800b Tue, 08 Sep 2020 19:20:31 GMT /api/orders/clientportal/5f57d8ccf3234227acca800b => 304
+GET /api/orders/clientportal/5f57d8ccf3234227acca800b Tue, 08 Sep 2020 19:20:34 GMT /api/orders/clientportal/5f57d8ccf3234227acca800b => 304
+GET /api/products Tue, 08 Sep 2020 19:20:42 GMT /api/products => 304
+GET /api/products Tue, 08 Sep 2020 19:21:04 GMT /api/products => 304
+GET /api/products Tue, 08 Sep 2020 19:21:08 GMT /api/products => 304
+POST /api/orders Tue, 08 Sep 2020 19:21:35 GMT /api/orders => 200
+GET /api/orders/clientportal/undefined Tue, 08 Sep 2020 19:21:35 GMT /api/orders/clientportal/undefined => 500
+GET /api/orders/clientportal/undefined Tue, 08 Sep 2020 19:22:39 GMT /api/orders/clientportal/undefined => 500
+GET /api/orders/clientportal/undefined Tue, 08 Sep 2020 19:22:43 GMT /api/orders/clientportal/undefined => 500
+GET /api/products Tue, 08 Sep 2020 19:22:47 GMT /api/products => 304
+POST /api/orders Tue, 08 Sep 2020 19:23:01 GMT /api/orders => 200
+GET /api/orders/clientportal/5f57da14f3234227acca8013 Tue, 08 Sep 2020 19:23:02 GMT /api/orders/clientportal/5f57da14f3234227acca8013 => 200
+PUT /api/orders/clientportal/5f57da14f3234227acca8013 Tue, 08 Sep 2020 19:23:07 GMT /api/orders/clientportal/5f57da14f3234227acca8013 => 200
+PUT /api/orders/clientportal/5f57da14f3234227acca8013 Tue, 08 Sep 2020 19:24:13 GMT /api/orders/clientportal/5f57da14f3234227acca8013 => 200
+GET /api/orders/clientportal/5f57da14f3234227acca8013 Tue, 08 Sep 2020 19:24:55 GMT /api/orders/clientportal/5f57da14f3234227acca8013 => 200
+PUT /api/orders/clientportal/5f57da14f3234227acca8013 Tue, 08 Sep 2020 19:25:39 GMT /api/orders/clientportal/5f57da14f3234227acca8013 => 200
+GET /api/orders/clientportal/5f57da14f3234227acca8013 Tue, 08 Sep 2020 19:25:48 GMT /api/orders/clientportal/5f57da14f3234227acca8013 => 200
+GET /api/products Tue, 08 Sep 2020 19:26:27 GMT /api/products => 304
+POST /api/orders Tue, 08 Sep 2020 19:26:53 GMT /api/orders => 200
+GET /api/orders/clientportal/5f57dafdf3234227acca801c Tue, 08 Sep 2020 19:26:53 GMT /api/orders/clientportal/5f57dafdf3234227acca801c => 200
+PUT /api/orders/clientportal/5f57dafdf3234227acca801c Tue, 08 Sep 2020 19:27:04 GMT /api/orders/clientportal/5f57dafdf3234227acca801c => 200
+GET /api/orders/clientportal/5f57dafdf3234227acca801c Tue, 08 Sep 2020 19:27:17 GMT /api/orders/clientportal/5f57dafdf3234227acca801c => 200

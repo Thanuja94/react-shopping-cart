@@ -207,15 +207,7 @@ class Cart extends Component {
                             Checkout
                           </button> 
                                                  
-                        </li>
-                    <li>
-                      <a href=""
-                        onClick={() =>{
-                        this.props.history.push(`/client/userportal/${this.props.currentOrderId}`);} }>
-                        Click to Confirm    
-                      </a> 
-                    </li>
-
+                        </li>                   
                       </ul>
                     </form>
                   </div>

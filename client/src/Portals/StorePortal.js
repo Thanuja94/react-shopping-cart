@@ -79,6 +79,7 @@ export default class StorePortal extends Component {
                 draggable: true,
                 progress: undefined,
             });
+            this.props.history.push(`/client/userportal/${res.data._id}`);
         } else {
             toast.error('Error creating !', {
                 position: "top-right",
