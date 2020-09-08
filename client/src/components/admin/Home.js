@@ -30,7 +30,7 @@ class Home extends Component {
 
                             </div>
                             <div className="card-block">
-                                <a href="#" className="small-box-footer text-white">View all
+                                <a href="#" className="small-box-footer text-white" onClick={() => this.toPage('/admin/vieworders')}>View all
                                     <i className="fa fa-eye float-right"></i>
                                 </a>
                             </div>

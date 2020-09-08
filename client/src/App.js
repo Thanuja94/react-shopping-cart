@@ -22,6 +22,7 @@ import PageNotfound from "./components/common/PageNotfound";
 import Auth from "../src/components/admin/Auth"
 
 import ProtectedRoute from "./components/admin/ProtectedRoute"
+import OrderList from "./components/admin/OrderList";
 
 
 class App extends React.Component {
@@ -52,6 +53,7 @@ class App extends React.Component {
                         <ProtectedRoute path="/admin/editproduct/:id" component={EditProduct} exact/>
                         <ProtectedRoute path="/admin/productsportal" component={ProductsPortal} exact/>
                         <ProtectedRoute path="/admin/productlist" component={ProductList} exact/>
+                        <ProtectedRoute path="/admin/vieworders" component={OrderList} exact/>
                         {/*<ProtectedRoute path="/admin" component={AdminPortal} exact/>*/}
                         <Route path="/admin" component={AdminPortal} exact/>
                         <Route path="/client/userportal/:id" component={UserPortal} exact/>
