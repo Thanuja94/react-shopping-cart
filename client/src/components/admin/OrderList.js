@@ -84,7 +84,7 @@ class OrderList extends Component {
                                             {/*<th scope="col">Latitude</th>*/}
                                             {/*<th scope="col">longitude</th>*/}
                                             <th scope="col">Email</th>
-                                            <th scope="col">Action</th>
+                                            {/*<th scope="col">Action</th>*/}
 
                                         </tr>
                                         </thead>
@@ -99,13 +99,13 @@ class OrderList extends Component {
                                                 {/*<td>{order.lat} </td>*/}
                                                 {/*<td>{order.long} </td>*/}
                                                 <td>{order.email} </td>
-                                                <td>
-                                                    <a href="#" onClick={() => this.props.history.push(`/admin/editproduct/${order.id}`)}
-                                                       className="text-info" data-toggle="tooltip"
-                                                       data-placement="top" title="" data-original-title="Close">
-                                                        <i className="fa fa-eye h5 m-0" title="View Order"></i>
-                                                    </a>
-                                                </td>
+                                                {/*<td>*/}
+                                                {/*    <a href="#" onClick={() => this.props.history.push(`/admin/editproduct/${order.id}`)}*/}
+                                                {/*       className="text-info" data-toggle="tooltip"*/}
+                                                {/*       data-placement="top" title="" data-original-title="Close">*/}
+                                                {/*        <i className="fa fa-eye h5 m-0" title="View Order"></i>*/}
+                                                {/*    </a>*/}
+                                                {/*</td>*/}
 
 
                                             </tr>
