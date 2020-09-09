@@ -14,7 +14,27 @@ import { ToastContainer, toast } from 'react-toastify';
         cartItems:[] 
     };
 }
+async componentDidMount() {
 
+    const { id } = this.props.match.params
+
+      await axios.get(`http://localhost:3000/api/orders/clientportal/${id}`, {
+
+      }).then(response => {
+          let data = response.data
+         // console.log(data)
+          this.setState({name: data.name,total: data.total,cartItems:data.cartItems});
+      })
+          .catch(err => {
+              if (err.response) {
+                  let error = err.response
+                  this.setState({isError: true, errorMsg: error.data.msg})
+                  console.log(err.response)
+              } else  {
+                  // client never received a response, or request never left
+              }
+          })
+}
 onSubmitHandler = async() =>
 {
   const { id } = this.props.match.params

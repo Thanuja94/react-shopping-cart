@@ -7,30 +7,9 @@ const router = express.Router();
  //create a write stream, in append mode, so we don’t overwrite the old logs everytime we write  a new one.  
 let accessLogStream = fs.createWriteStream(path.join(__dirname, 'userLogs.log'),{flags: "a"}); 
 
-let getLogger = router.get('/api/products/',async function (req, res, next) {
-
-
-next(); 
-}); 
-
-let getIdLogger = router.get('/api/products/:productId',async function (req, res, next) {
- 
-next(); 
-});
-
-const postLogger = router.post('/api/products/',async function (req, res, next) {
-   
+let getLogger = router.get('/',async function (req, res, next) {
   next(); 
-});
-const putLogger = router.put('/api/products/:productId',async function (req, res, next) {
-   
-   next(); 
-});
-
-const deleteLogger = router.delete('/api/products/:productId',async function (req, res, next) {
-   
-   next(); 
-});
+}); 
 
 router.use(morgan(':method :url :date :url => :status',{
   interval: '7d', // logs will rotate every week
@@ -38,4 +17,4 @@ router.use(morgan(':method :url :date :url => :status',{
   noColors: true 
 })); 
 
-module.exports =  getLogger,getIdLogger,postLogger,putLogger,deleteLogger;
+module.exports =  getLogger;
