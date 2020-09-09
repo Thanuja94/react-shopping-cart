@@ -102,10 +102,10 @@ class Login extends Component {
                                 <form onSubmit={this.onSubmitHandler}>
                                     <div className="input-group form-group">
                                         <div className="input-group-prepend">
-                                            <span className="input-group-text"><i className="fa fa-user"></i></span>
+                                            <span className="input-group-text"><i className="fa fa-envelope"></i></span>
                                         </div>
                                         <input type="text" className="form-control" name="username"
-                                               onChange={this.myChangeHandler} placeholder="username"/>
+                                               onChange={this.myChangeHandler} placeholder="Email"/>
 
                                     </div>
                                     <div className="input-group form-group">
@@ -136,15 +136,7 @@ class Login extends Component {
                                     </div>
                                 </form>
                             </div>
-                            <div className="card-footer">
-                                <div className="d-flex justify-content-center links">
-                                    Don't have an account?
-                                    <a href="" onClick={() => this.toHome('/admin/signup')}> Sign Up </a>
-                                </div>
-                                <div className="d-flex justify-content-center">
-                                    <a href="#">Forgot your password?</a>
-                                </div>
-                            </div>
+
                         </div>
                     </div>
                 </div>

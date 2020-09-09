@@ -20,7 +20,7 @@ class Home extends Component {
                 <br/>
                 <div className="row">
 
-                    <div className="col-md-4 col-xl-3">
+                    <div className="col-md-4 col-xl-4">
                         <div className="card bg-c-blue order-card">
                             <div className="card-block">
                                 <h2 className="m-b-20">Orders Received</h2>
@@ -37,7 +37,7 @@ class Home extends Component {
                         </div>
                     </div>
 
-                    <div className="col-md-4 col-xl-3">
+                    <div className="col-md-4 col-xl-4">
                         <div className="card bg-c-green order-card">
                             <div className="card-block">
                                 <h2 className="m-b-20">Total Products</h2>
@@ -55,7 +55,7 @@ class Home extends Component {
                         </div>
                     </div>
 
-                    <div className="col-md-4 col-xl-3">
+                    <div className="col-md-4 col-xl-4">
                         <div className="card bg-c-yellow order-card">
                             <div className="card-block">
                                 <h2 className="m-b-20">System Admins</h2>
@@ -67,23 +67,6 @@ class Home extends Component {
                                 <a href="#" className="small-box-footer text-white"
                                    onClick={() => this.toPage('/admin/adminlist')}>View Admins
                                     <i className="fa fa-eye float-right"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="col-md-4 col-xl-3">
-                        <div className="card bg-c-pink order-card">
-                            <div className="card-block">
-                                <h2 className="m-b-20">Payment Received</h2>
-                                {/*<h2 className="text-right"><i*/}
-                                {/*    className="fa fa-credit-card f-left"></i><span>486</span></h2>*/}
-                                {/*<p className="m-b-0">Completed Orders<span className="f-right">351</span></p>*/}
-                            </div>
-                            <div className="card-block">
-                                <a href="#" className="small-box-footer text-white">View all
-                                    <i className="fa fa-eye float-right"></i>
-
                                 </a>
                             </div>
                         </div>

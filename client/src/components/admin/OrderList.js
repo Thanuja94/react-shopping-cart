@@ -69,18 +69,10 @@ class OrderList extends Component {
 
                 <div className="row">
                     <div className="col-lg-12">
-                        <button className="btn btn-lg btn-info float-right"
-                                onClick={() => this.props.history.push('/admin/productsportal')}>
-                            <i className="fa fa-plus-circle"></i>
-                            Add New
-                        </button>
-                        <br/>
                         <br/>
                         <div className="card">
                             <div className="card-body">
-                                <h4 className="header-title mb-3">Product List</h4>
-
-
+                                <h4 className="header-title mb-3">Orders Received</h4>
                                 <div className="table-responsive project-list">
                                     <table className="table project-table table-centered table-nowrap">
                                         <thead>
