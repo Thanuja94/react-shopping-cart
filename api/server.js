@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const morgan = require('morgan');
 const mongoose = require('mongoose');
 const fileUpload = require('express-fileupload');
 const config = require('./config/config'); // global config file
@@ -10,6 +11,12 @@ const port = process.env.PORT || config.port;
 //#region  --routes
 
 var products = require('./routes/products');
+var orders = require('./routes/orders');
+var admins = require('./routes/admins');
+var auth = require('./routes/auth');
+var users = require('./routes/users');
+const logger = require('./middlewares/logger');
+var userAuth =require('./routes/userAuth');
 
 //#endregion
 
@@ -17,9 +24,9 @@ var app = express();
 
 
 //#region - middlewares
-
 app.use(cors());
-app.use(fileUpload())
+app.use(logger);
+app.use(fileUpload());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
    
@@ -32,7 +39,12 @@ app.use(bodyParser.json());
 //#endregion
 
 //#region  -- register routes
-app.use('/api', products);
+app.use('/api/products', products);
+app.use('/api/orders', orders);
+app.use('/api/admin', admins);
+app.use('/api/admin/auth', auth);
+app.use('/api/users', users);
+app.use('/api/userAuth',userAuth);
 
 
 //#endregion

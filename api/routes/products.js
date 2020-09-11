@@ -2,52 +2,53 @@ const express = require('express');
 const router = express.Router();
 const commonFunctions = require('../helpers/commonFunctions');
 const Product = require('../models/product');
+const {Validator} = require('node-input-validator');
+const {findByIdAndDelete} = require('../models/product');
+const jwt = require('jsonwebtoken')
+const config = require('../config/config');
 
-router.get('/product', async(req, res) => {
+router.get('/', async (req, res) => {
 
-    try{
-        let product = await Product.find({});
-    res.send(product);
-    }
-    catch(e){
-        res.status(500).send(e.message);
-    }
-});
-
-router.get('/:productId', async(req, res) => {
     try {
-        let product = await Product.findOne({ _id: req.params.productId } //Products that are match with params id
-        );
-        res.send(product);
+        let product = await Product.find({});
+        res.status(200).send(product);
     } catch (e) {
         res.status(500).send(e.message);
     }
 });
 
-router.put('/:productId', async(req, res) => {
-    //update first approach   
-    let product = await Product.findOneAndUpdate({ _id: req.params.heroId }, {
-            $set: {
-                name: req.body.productName,
-                price: req.body.price,
-                qty: req.body.qty,
-                category: req.body.category,
-                imagePath: file.name
-            }
-        }, { new: true, useFindAndModify: false }
+router.post('/', async (req, res) => {
 
-    );
-    res.send(product);
+    //
+    // const token = req.header("x-jwt-token");
+    //
+    // if (!token) return res.status(401).send({msg: "Access denied. No token"});
+    //
+    // try {
+    //     jwt.verify(token, config.SECRET_KEY);
+    // } catch (e) {
+    //     res.status(400).send({msg: "Invalid token. Please login again"});
+    // }
 
-});
+    const file = req.files.imagePath;
 
-router.post('/product', async(req, res) => {
+    try {
 
-    router.post('/', async(req, res) => {
+        const validationObj = new Validator(req.body, {
+            productName: 'required|minLength:5',
+            price: 'required|integer',
+            qty: 'required|integer',
+            category: 'required',
+            files: 'object'
+        });
 
-        const file = req.files.file;
+        // validate user input
+        if (!await validationObj.check()) {
 
-        await file.mv(`../client/public/uploads/${file.name}`, function(err) {
+            return res.status(422).send(validationObj);
+        }
+
+        await file.mv(`../client/public/uploads/${file.name}`, function (err) {
             if (err) {
                 console.log(err);
                 if (!file) res.status(400).send('Image should be uploaded ...');
@@ -64,8 +65,121 @@ router.post('/product', async(req, res) => {
         });
 
         res.send(await product.save());
+    } catch (e) {
+        res.status(500).send(e.message);
+    }
 
-    });
 });
+
+
+
+
+router.get('/:productId', async (req, res) => {
+
+    const token = req.header("x-jwt-token");
+
+    if (!token) return res.status(401).send({msg: "Access denied. No token"});
+
+    try {
+        jwt.verify(token, config.SECRET_KEY);
+    } catch (e) {
+        res.status(400).send({msg: "Invalid token1"});
+    }
+
+
+    try {
+        let product = await Product.findOne({_id: req.params.productId});
+        res.send(product);
+    } catch (e) {
+        res.status(500).send({msg: e.message});
+    }
+});
+
+
+router.put('/:productId', async (req, res) => {
+
+
+    const token = req.header("x-jwt-token");
+
+    if (!token) return res.status(401).send({msg: "Access denied. No token"});
+
+    try {
+        jwt.verify(token, config.SECRET_KEY);
+    } catch (e) {
+        res.status(400).send({msg: "Invalid token. Please login again"});
+    }
+
+    // const file = req.files.imagePath;
+
+    console.log(req.body)
+    try {
+
+        const validationObj = new Validator(req.body, {
+            productName: 'required|minLength:5',
+            price: 'required|integer',
+            qty: 'required|integer',
+            category: 'required',
+            // files: 'object'
+        });
+
+        // validate user input
+        if (!await validationObj.check()) {
+
+            return res.status(422).send({msg:"Please fill all required fields correctly"});
+        }
+
+        // await file.mv(`../client/public/uploads/${file.name}`, function (err) {
+        //     if (err) {
+        //         console.log(err);
+        //         if (!file) res.status(400).send('Image should be uploaded ...');
+        //         res.status(500).send("Error uploading image...");
+        //     }
+        // });
+
+        let product = await Product.findOneAndUpdate({_id: req.params.productId}, {
+                $set: {
+                    name: req.body.productName,
+                    price: req.body.price,
+                    qty: req.body.qty,
+                    category: req.body.category,
+                    // imagePath: file.name,
+                }
+            }, {new: true, useFindAndModify: false}
+        );
+
+        res.send(await product.save());
+    } catch (e) {
+        res.status(500).send(e.message);
+    }
+
+});
+
+router.delete('/:productId', async (req, res) => {
+
+    const token = req.header("x-jwt-token");
+
+    if (!token) return res.status(401).send("Access denied. No token");
+
+    try {
+        jwt.verify(token, config.SECRET_KEY);
+    } catch (e) {
+        res.status(400).send("Invalid token");
+    }
+
+    try {
+        let admin = await Product.findOneAndDelete({ _id: req.params.productId });
+
+        if (!admin) {
+            return res.status(404).send("The given Id does not exist on our server");
+        }
+
+        res.send({msg:"Product Deleted Successfully"});
+
+    } catch (e) {
+        res.status(404).send(e);
+    }
+
+});
+
 
 module.exports = router;

@@ -19,7 +19,8 @@ const productSchema = new mongoose.Schema({
     },
     isActive: {
         type: Boolean,
-        required: [true,'Active Status should be included']
+        required: [true, 'Active Status should be included'],
+        default: 1,
     }
 
 });
